@@ -8,7 +8,8 @@ import HomeScreen from './screens/home';
 import LoginScreen from './screens/login';
 import SignupScreen from './screens/signup';
 import LogoutScreen from './screens/logout';
-import ProfileScreen from './screens/profile';
+import NavigationScreen from './navigation/topnav';
+
 
 const Drawer = createDrawerNavigator();
 
@@ -21,7 +22,7 @@ class App extends Component{
                     <Drawer.Screen name="Login" component={LoginScreen} />
                     <Drawer.Screen name="Signup" component={SignupScreen} />
                     <Drawer.Screen name="Logout" component={LogoutScreen} />
-                    <Drawer.Screen name="Profile" component={ProfileScreen} />
+                    <Drawer.Screen name="topNav" component={NavigationScreen} />
                 </Drawer.Navigator>
             </NavigationContainer>
         );

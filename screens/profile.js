@@ -26,7 +26,7 @@ class MyProfile extends Component {
       }
 
 
-    
+    /*work alongside the logged in user */
       getData = async () => {
         const value = await AsyncStorage.getItem('@session_token');
             return fetch("http://localhost:3333/api/1.0.0/user/8",{
@@ -75,10 +75,5 @@ class MyProfile extends Component {
 
       }
     }
-const styles = StyleSheet.create({
-    Text: {
-        alignItems: 'center',
-        justifyContent: 'center',
-    },
-});
+
 export default MyProfile;

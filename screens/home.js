@@ -3,6 +3,7 @@ import {View, Text, FlatList} from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import MyProfile from './profile';
+import topNavigator from '../navigation/topnav';
 
 
 
@@ -17,10 +18,10 @@ function ProfileScreen() {
   );
 }
 
-function SettingsScreen() {
+function FriendsScreen() {
   return (
     <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-      <Text>Settings!</Text>
+      <Text>Friends!</Text>
     </View>
   );
 }
@@ -93,7 +94,7 @@ class HomeScreen extends Component {
       return (
         <Tab.Navigator>
         <Tab.Screen name="Profile" component={ProfileScreen} />
-        <Tab.Screen name="Settings" component={SettingsScreen} />
+        <Tab.Screen name="Friends" component={FriendsScreen} />
       </Tab.Navigator>
       );
     }
