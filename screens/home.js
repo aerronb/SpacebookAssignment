@@ -6,12 +6,13 @@ import MyProfile from './profile';
 
 
 
+
 const Tab = createBottomTabNavigator();
 
 function ProfileScreen() {
   return (
-    <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-      < MyProfile />
+    <View>
+      <MyProfile />
     </View>
   );
 }
