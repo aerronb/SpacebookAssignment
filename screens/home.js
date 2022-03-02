@@ -3,17 +3,16 @@ import {View, Text, FlatList} from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import MyProfile from './profile';
-import topNavigator from '../navigation/topnav';
-
-
-
+import TopNavigator from '../navigation/topnav';
 
 const Tab = createBottomTabNavigator();
 
 function ProfileScreen() {
   return (
     <View>
+      <TopNavigator />
       <MyProfile />
+
     </View>
   );
 }
@@ -40,7 +39,6 @@ class HomeScreen extends Component {
     this.unsubscribe = this.props.navigation.addListener('focus', () => {
       this.checkLoggedIn();
     });
-  
     this.getData();
   }
 

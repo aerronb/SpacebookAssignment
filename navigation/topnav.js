@@ -4,7 +4,6 @@ import { TouchableOpacity } from 'react-native-gesture-handler';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 
-
 class TopNavigator extends Component {
   constructor(props){
     super(props);
@@ -61,13 +60,9 @@ class TopNavigator extends Component {
               }}
             />
           </TouchableOpacity>
-          <TouchableOpacity>
-            Posts!
-
-
-
-
-          </TouchableOpacity>
+          {/* <TouchableOpacity onPress={this.props.navigation.navigate('posts')} >
+            <Text>Posts!</Text>
+          </TouchableOpacity> */}
         </View>
       );
     }else{
@@ -84,7 +79,8 @@ class TopNavigator extends Component {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
+    flexDirection: 'row',
+    justifyContent: 'center',
     backgroundColor: '#fff'
   },
 });
