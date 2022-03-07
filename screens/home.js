@@ -1,30 +1,8 @@
 import React, {Component} from 'react';
-import {View, Text, FlatList} from 'react-native';
+import {View, Text, FlatList, TouchableOpacity, Image, StyleSheet} from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import MyProfile from './profile';
-import TopNavigator from '../navigation/topnav';
-import Posts from './posts';
-
-const Tab = createBottomTabNavigator();
-
-function ProfileScreen() {
-  return (
-    <View>
-      <TopNavigator />
-      <MyProfile/>
-    </View>
-  );
-}
-
-function FriendsScreen() {
-  return (
-    <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-      <Text>Friends!</Text>
-    </View>
-  );
-}
-
+import { DrawerActions } from '@react-navigation/native';
 
 
 class HomeScreen extends Component {
@@ -32,39 +10,42 @@ class HomeScreen extends Component {
     super(props);
 
     this.state = {
+      userPhoto: null,
     }
   }
 
   componentDidMount() {
     this.unsubscribe = this.props.navigation.addListener('focus', () => {
       this.checkLoggedIn();
+      this.get_profile_image();
     });
-    this.getData();
   }
 
   componentWillUnmount() {
     this.unsubscribe();
   }
 
-  getData = async () => {
+  get_profile_image = async () => {
     const value = await AsyncStorage.getItem('@session_token');
-    return fetch("http://localhost:3333/api/1.0.0/search", {
-          'headers': {
-            'X-Authorization':  value
-          }
-        })
-        .then((response) => {
-            if(response.status === 200){
-                return response.json()
-            }else if(response.status === 401){
-              this.props.navigation.navigate("Login");
-            }else{
-                throw 'Something went wrong';
-            }
-        })
-        .catch((error) => {
-            console.log(error);
-        })
+    fetch("http://localhost:3333/api/1.0.0/user/8/photo", {
+      method: 'GET',
+      headers: {
+        'X-Authorization': value
+      }
+    })
+    .then((res) => {
+      return res.blob();
+    })
+    .then((resBlob) => {
+      let data = URL.createObjectURL(resBlob);
+      this.setState({
+        userPhoto: data,
+        isLoading: false
+      });
+    })
+    .catch((err) => {
+      console.log("error", err)
+    });
   }
 
   checkLoggedIn = async () => {
@@ -90,10 +71,29 @@ class HomeScreen extends Component {
       );
     }else{
       return (
-        <Tab.Navigator>
-        <Tab.Screen name="Profile" component={ProfileScreen} />
-        <Tab.Screen name="Friends" component={FriendsScreen} />
-      </Tab.Navigator>
+        <View style={styles.container}>
+          <View style={styles.navBar}>
+            <TouchableOpacity onPress={() => this.props.navigation.dispatch(DrawerActions.toggleDrawer)} > 
+              <Image
+                source={{
+                  uri: this.state.userPhoto,
+                }}
+                style={{
+                  width: 50,
+                  height: 50,
+                }}
+              />
+            </TouchableOpacity>
+            <TouchableOpacity onPress={() => this.props.navigation.dispatch(DrawerActions.jumpTo('Posts'))} >
+              <Text>Posts!</Text>
+            </TouchableOpacity>
+          </View>
+          <View style={styles.profileS}>
+          <MyProfile/>
+        </View>
+        </View>
+
+      
       );
     }
     
@@ -101,5 +101,15 @@ class HomeScreen extends Component {
 }
 
 
+const styles = StyleSheet.create({
+  navBar: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    backgroundColor: '#fff'
+  },
+  container: {
+    flex: 1,
+  }
+});
 
 export default HomeScreen;
