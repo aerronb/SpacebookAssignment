@@ -1,37 +1,40 @@
-import React, {Component} from 'react';
-import {View, Text, StyleSheet, Image} from 'react-native';
-import { TouchableOpacity } from 'react-native-gesture-handler';
+import React, { Component } from 'react';
+import { View, Text, StyleSheet, FlatList } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 
-class posts extends Component {
-  constructor(props){
-    super(props);
+class Posts extends Component {
+    constructor(props) {
+        super(props);
 
-    this.state = {
-        isLoading: true,
-        allUserPosts: []
+        this.state = {
+            isLoading: true,
+            allUserPosts: []
+        }
+
     }
 
-  }
+    componentDidMount() {
+        this.getData();
+    }
 
-  componentDidMount(){
-    this.getData
-  }
-
-  componentWillUnmount() {
-    this.unsubscribe();
-  }
-
-  getData = async () => {
-    const value = await AsyncStorage.getItem('@session_token');
-        return fetch("http://localhost:3333/api/1.0.0/user/7/posts",{
+    getData = async () => {
+        const value = await AsyncStorage.getItem('@session_token');
+        return fetch("http://localhost:3333/api/1.0.0/user/8/post", {
             method: 'GET',
             headers: {
                 'X-Authorization': value
             }
         })
-        .then((response) => response.json())
+        .then((response) => {
+            if(response.status === 200){
+                return response.json()
+            }else if(response.status === 401){
+              this.props.navigation.navigate("Login");
+            }else{
+                throw 'Something went wrong';
+            }
+        })
         .then((responseJson) => {
             this.setState({
                 isLoading: false,
@@ -45,8 +48,9 @@ class posts extends Component {
 
 
 
-  render(){
-      if (this.state.isLoading){
+      render() {
+
+        if (this.state.isLoading){
           return (
             <View
               style={{
@@ -61,21 +65,30 @@ class posts extends Component {
         }else{
           return (
             <View>
-            <FlatList
-                  data={this.state.allUserPosts}
-                  renderItem={({item}) => (
-                      <View>
-                        <Text>{item.user_givenname} {item.user_familyname}</Text>
-                      </View>
-                  )}
-                  keyExtractor={(item,index) => item.user_id.toString()}
+              <FlatList
+                    data={this.state.allUserPosts}
+                    renderItem={({item}) => (
+                        <View style={styles.container}>
+                          <Text>{item.post_id}</Text>  
+                          <Text>{item.text}</Text>
+                          <Text>{item.timestamp}</Text>
+                        </View>
+                    )}
+                    keyExtractor={(item,index) => item.post_id.toString()}
                 />
-          </View>
+            </View>
           );
         }
-
       }
     }
 
+    const styles = StyleSheet.create({
+        container: {
+          backgroundColor: '#fff',
+          alignItems: 'center',
+          flexDirection: 'space-around',
+        },
+      });
 
-export default posts;
+
+export default Posts;

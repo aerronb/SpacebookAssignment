@@ -10,7 +10,8 @@ import SignupScreen from './screens/signup';
 import LogoutScreen from './screens/logout';
 import NavigationScreen from './navigation/topnav';
 import PostScreen from './screens/posts';
-
+import AllUsers from './screens/showAllPeople';
+import ProfileScreen from './screens/profile';
 
 const Drawer = createDrawerNavigator();
 
@@ -25,6 +26,8 @@ class App extends Component{
                     <Drawer.Screen name="Logout" component={LogoutScreen} />
                     <Drawer.Screen name="topNav" component={NavigationScreen} />
                     <Drawer.Screen name="Posts" component={PostScreen} />
+                    <Drawer.Screen name="AllUsers" component={AllUsers} />
+                    <Drawer.Screen name="Profile" component={ProfileScreen} />
                 </Drawer.Navigator>
             </NavigationContainer>
         );

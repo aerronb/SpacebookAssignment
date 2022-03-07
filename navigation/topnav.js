@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import {View, Text, StyleSheet, Image} from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import {DrawerActions} from '@react-navigation/native'
 
 
 class TopNavigator extends Component {
@@ -40,16 +41,13 @@ class TopNavigator extends Component {
   componentDidMount(){
     this.get_profile_image();
   }
-/*Change drawer method */
-  toggleDrawer(){
-    this.props.navigation.toggleDrawer
-  }
+
 
   render(){
     if(!this.state.isLoading){
       return (
         <View style={styles.container}>
-          <TouchableOpacity onPress={this.props.navigation.toggleDrawer} > 
+          <TouchableOpacity onPress={() => this.props.navigation.dispatch(DrawerActions.toggleDrawer)} > 
             <Image
               source={{
                 uri: this.state.userPhoto,
@@ -60,9 +58,9 @@ class TopNavigator extends Component {
               }}
             />
           </TouchableOpacity>
-          {/* <TouchableOpacity onPress={this.props.navigation.navigate('posts')} >
+          <TouchableOpacity onPress={() => this.props.navigation.dispatch(DrawerActions.jumpTo('Posts'))} >
             <Text>Posts!</Text>
-          </TouchableOpacity> */}
+          </TouchableOpacity>
         </View>
       );
     }else{
@@ -80,7 +78,7 @@ class TopNavigator extends Component {
 const styles = StyleSheet.create({
   container: {
     flexDirection: 'row',
-    justifyContent: 'center',
+    justifyContent: 'space-between',
     backgroundColor: '#fff'
   },
 });

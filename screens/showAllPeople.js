@@ -1,50 +1,22 @@
 import React, {Component} from 'react';
-import {View, Text, FlatList} from 'react-native';
+import {View, Text, FlatList, StyleSheet, Button} from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import MyProfile from './profile';
-import TopNavigator from '../navigation/topnav';
-import Posts from './posts';
-
-const Tab = createBottomTabNavigator();
-
-function ProfileScreen() {
-  return (
-    <View>
-      <TopNavigator />
-      <MyProfile/>
-    </View>
-  );
-}
-
-function FriendsScreen() {
-  return (
-    <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-      <Text>Friends!</Text>
-    </View>
-  );
-}
 
 
-
-class HomeScreen extends Component {
+class ShowAllPeople extends Component {
   constructor(props){
     super(props);
 
     this.state = {
+      isLoading: true,
+      allUserData: []
     }
   }
 
   componentDidMount() {
-    this.unsubscribe = this.props.navigation.addListener('focus', () => {
-      this.checkLoggedIn();
-    });
     this.getData();
   }
 
-  componentWillUnmount() {
-    this.unsubscribe();
-  }
 
   getData = async () => {
     const value = await AsyncStorage.getItem('@session_token');
@@ -62,17 +34,18 @@ class HomeScreen extends Component {
                 throw 'Something went wrong';
             }
         })
+        .then((responseJson) => {
+          this.setState({
+            isLoading: false,
+            allUserData: responseJson
+          })
+          console.log(responseJson)
+        })
         .catch((error) => {
             console.log(error);
         })
   }
 
-  checkLoggedIn = async () => {
-    const value = await AsyncStorage.getItem('@session_token');
-    if (value == null) {
-        this.props.navigation.navigate('Login');
-    }
-  };
 
   render() {
 
@@ -90,16 +63,32 @@ class HomeScreen extends Component {
       );
     }else{
       return (
-        <Tab.Navigator>
-        <Tab.Screen name="Profile" component={ProfileScreen} />
-        <Tab.Screen name="Friends" component={FriendsScreen} />
-      </Tab.Navigator>
+        <View>
+          <FlatList
+                data={this.state.allUserData}
+                renderItem={({item}) => (
+                    <View style={styles.container}>
+                      <Text>{item.user_givenname}</Text>
+                      <Text>{item.user_familyname}</Text>
+                      <Button>Add Friend</Button>
+                      <Text>{'\n'}</Text>
+                    </View>
+                )}
+                keyExtractor={(item,index) => item.user_id.toString()}
+            />
+        </View>
       );
     }
-    
   }
 }
 
+const styles = StyleSheet.create({
+    container: {
+      backgroundColor: '#fff',
+      alignItems: 'center',
+      flexDirection: 'space-around',
+    },
+  });
 
 
-export default HomeScreen;
+export default ShowAllPeople;

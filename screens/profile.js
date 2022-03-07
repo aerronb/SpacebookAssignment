@@ -12,7 +12,7 @@ class MyProfile extends Component {
           isLoading: true,
           myFirstName: "",
           myLastName: "",
-          myEmail: ""
+          myEmail: "",
 
         }
       }
@@ -28,6 +28,7 @@ class MyProfile extends Component {
 
     /*work alongside the logged in user */
       getData = async () => {
+        const id = await AsyncStorage.getItem('@session_id');
         const value = await AsyncStorage.getItem('@session_token');
             return fetch("http://localhost:3333/api/1.0.0/user/8",{
                 method: 'GET',
@@ -41,7 +42,7 @@ class MyProfile extends Component {
                     isLoading: false,
                     myFirstName: responseJson.first_name,
                     myLastName: responseJson.last_name,
-                    myEmail: responseJson.email
+                    myEmail: responseJson.email,
                 })
             })
             .catch((error) => {
