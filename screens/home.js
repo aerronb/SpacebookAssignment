@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
-import { View, Text, FlatList, TouchableOpacity, Image, StyleSheet } from 'react-native';
+import { View, Text, TouchableOpacity, Image, StyleSheet } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import MyProfile from './profile';
 import { DrawerActions } from '@react-navigation/native';
+
+import MyProfile from './profile';
 
 
 class HomeScreen extends Component {
@@ -89,7 +90,7 @@ class HomeScreen extends Component {
               <Text>Posts!</Text>
             </TouchableOpacity>
 
-            <TouchableOpacity onPress={() => this.props.navigation.dispatch(DrawerActions.jumpTo('Friends'))} >
+            <TouchableOpacity onPress={() => this.props.navigation.dispatch(DrawerActions.jumpTo('All-Users'))} >
               <Text>Find your friends!</Text>
             </TouchableOpacity>
 
@@ -97,6 +98,11 @@ class HomeScreen extends Component {
 
           <View>
             <MyProfile />
+          </View>
+          <View style={styles.editButton}>
+            <TouchableOpacity  >
+              <Text>Edit Profile</Text>
+            </TouchableOpacity>
           </View>
         </View>
 
@@ -116,6 +122,9 @@ const styles = StyleSheet.create({
   },
   container: {
     flex: 1,
+  },
+  editButton: {
+    width: 100, 
   }
 });
 

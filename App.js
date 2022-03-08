@@ -10,7 +10,7 @@ import SignupScreen from './screens/signup';
 import LogoutScreen from './screens/logout';
 import PostScreen from './screens/posts';
 import FriendScreen from './screens/friends';
-import friendRequests from './screens/friendRequests';
+import friendRequestsScreen from './screens/friendRequests';
 
 const Drawer = createDrawerNavigator();
 
@@ -24,8 +24,8 @@ class App extends Component{
                     <Drawer.Screen name="Signup" component={SignupScreen} />
                     <Drawer.Screen name="Logout" component={LogoutScreen} />
                     <Drawer.Screen name="Posts" component={PostScreen} options={{drawerLabel: () => null}}/>
-                    <Drawer.Screen name="Friends" component={FriendScreen} />
-                    <Drawer.Screen name="FriendRequests" component={friendRequests} />
+                    <Drawer.Screen name="All-Users" component={FriendScreen} />
+                    <Drawer.Screen name="FriendRequests" component={friendRequestsScreen} />
                 </Drawer.Navigator>
             </NavigationContainer>
         );

@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { View, Text, FlatList, StyleSheet, Button } from 'react-native';
+import FriendRequests from './friendRequests';
 import ShowAllPeople from './showAllPeople';
 
 
@@ -22,6 +23,11 @@ class Friends extends Component {
                     <View>
                         <ShowAllPeople/>
                     </View>
+
+                    <View style={styles.friRequests}>
+                        <Text style={{alignSelf: 'center'}}>PENDING FRIEND REQUESTS</Text>
+                        <FriendRequests/>
+                    </View>
                 </View>
 
 
@@ -38,6 +44,9 @@ const styles = StyleSheet.create({
     },
     container: {
         flex: 1,
+    },
+    friRequests: {
+        
     }
 });
 

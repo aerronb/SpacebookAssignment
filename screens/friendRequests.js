@@ -3,7 +3,7 @@ import { View, Text, FlatList, StyleSheet, Button } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 
-class friendRequests extends Component {
+class FriendRequests extends Component {
     constructor(props) {
         super(props);
 
@@ -45,6 +45,7 @@ class friendRequests extends Component {
     }
 
 
+
     render() {
 
         if (this.state.isLoading) {
@@ -84,4 +85,4 @@ const styles = StyleSheet.create({
     },
 });
 
-export default friendRequests;
+export default FriendRequests;
