@@ -1,12 +1,12 @@
-import React, {Component} from 'react';
-import {View, Text, FlatList, TouchableOpacity, Image, StyleSheet} from 'react-native';
+import React, { Component } from 'react';
+import { View, Text, FlatList, TouchableOpacity, Image, StyleSheet } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import MyProfile from './profile';
 import { DrawerActions } from '@react-navigation/native';
 
 
 class HomeScreen extends Component {
-  constructor(props){
+  constructor(props) {
     super(props);
 
     this.state = {
@@ -33,31 +33,31 @@ class HomeScreen extends Component {
         'X-Authorization': value
       }
     })
-    .then((res) => {
-      return res.blob();
-    })
-    .then((resBlob) => {
-      let data = URL.createObjectURL(resBlob);
-      this.setState({
-        userPhoto: data,
-        isLoading: false
+      .then((res) => {
+        return res.blob();
+      })
+      .then((resBlob) => {
+        let data = URL.createObjectURL(resBlob);
+        this.setState({
+          userPhoto: data,
+          isLoading: false
+        });
+      })
+      .catch((err) => {
+        console.log("error", err)
       });
-    })
-    .catch((err) => {
-      console.log("error", err)
-    });
   }
 
   checkLoggedIn = async () => {
     const value = await AsyncStorage.getItem('@session_token');
     if (value == null) {
-        this.props.navigation.navigate('Login');
+      this.props.navigation.navigate('Login');
     }
   };
 
   render() {
 
-    if (this.state.isLoading){
+    if (this.state.isLoading) {
       return (
         <View
           style={{
@@ -69,11 +69,11 @@ class HomeScreen extends Component {
           <Text>Loading..</Text>
         </View>
       );
-    }else{
+    } else {
       return (
         <View style={styles.container}>
           <View style={styles.navBar}>
-            <TouchableOpacity onPress={() => this.props.navigation.dispatch(DrawerActions.toggleDrawer)} > 
+            <TouchableOpacity onPress={() => this.props.navigation.dispatch(DrawerActions.toggleDrawer)} >
               <Image
                 source={{
                   uri: this.state.userPhoto,
@@ -84,19 +84,26 @@ class HomeScreen extends Component {
                 }}
               />
             </TouchableOpacity>
+
             <TouchableOpacity onPress={() => this.props.navigation.dispatch(DrawerActions.jumpTo('Posts'))} >
               <Text>Posts!</Text>
             </TouchableOpacity>
+
+            <TouchableOpacity onPress={() => this.props.navigation.dispatch(DrawerActions.jumpTo('Friends'))} >
+              <Text>Find your friends!</Text>
+            </TouchableOpacity>
+
           </View>
-          <View style={styles.profileS}>
-          <MyProfile/>
-        </View>
+
+          <View>
+            <MyProfile />
+          </View>
         </View>
 
-      
+
       );
     }
-    
+
   }
 }
 

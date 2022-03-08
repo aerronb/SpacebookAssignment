@@ -1,28 +1,26 @@
 import React, { Component } from 'react';
-import { View, Text, StyleSheet, FlatList } from 'react-native';
+import { View, Text, FlatList, StyleSheet, Button } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 
-class Posts extends Component {
+class friendRequests extends Component {
     constructor(props) {
         super(props);
 
         this.state = {
             isLoading: true,
-            allUserPosts: []
+            friendsReqs: []
         }
-
     }
-
     componentDidMount() {
         this.getData();
     }
 
+
     getData = async () => {
         const value = await AsyncStorage.getItem('@session_token');
-        return fetch("http://localhost:3333/api/1.0.0/user/8/post", {
-            method: 'GET',
-            headers: {
+        return fetch("http://localhost:3333/api/1.0.0/friendrequests", {
+            'headers': {
                 'X-Authorization': value
             }
         })
@@ -38,14 +36,13 @@ class Posts extends Component {
             .then((responseJson) => {
                 this.setState({
                     isLoading: false,
-                    allUserPosts: responseJson
+                    friendsReqs: responseJson
                 })
             })
             .catch((error) => {
                 console.log(error);
-            });
+            })
     }
-
 
 
     render() {
@@ -66,15 +63,14 @@ class Posts extends Component {
             return (
                 <View>
                     <FlatList
-                        data={this.state.allUserPosts}
+                        data={this.state.friendsReqs}
                         renderItem={({ item }) => (
                             <View style={styles.container}>
-                                <Text>{item.post_id}</Text>
-                                <Text>{item.text}</Text>
-                                <Text>{item.timestamp}</Text>
+                                <Text>{item.first_name} {item.last_name}</Text>
+                                <Text>{'\n'}</Text>
                             </View>
                         )}
-                        keyExtractor={(item, index) => item.post_id.toString()}
+                        keyExtractor={(item, index) => item.user_id.toString()}
                     />
                 </View>
             );
@@ -85,10 +81,7 @@ class Posts extends Component {
 const styles = StyleSheet.create({
     container: {
         backgroundColor: '#fff',
-        alignItems: 'center',
-        flexDirection: 'space-around',
     },
 });
 
-
-export default Posts;
+export default friendRequests;
