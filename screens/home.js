@@ -3,7 +3,7 @@ import { View, Text, TouchableOpacity, Image, StyleSheet } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { DrawerActions } from '@react-navigation/native';
 
-import MyProfile from './profile';
+import MyProfile from '../components/profile';
 
 
 

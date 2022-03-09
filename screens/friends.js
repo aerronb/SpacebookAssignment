@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { View, Text, FlatList, StyleSheet, Button } from 'react-native';
-import FriendRequests from './friendRequests';
-import ShowAllPeople from './showAllPeople';
+import FriendRequests from '../components/friendRequests';
+import ShowAllPeople from '../components/showAllPeople';
 
 
 class Friends extends Component {
