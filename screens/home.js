@@ -6,11 +6,13 @@ import { DrawerActions } from '@react-navigation/native';
 import MyProfile from './profile';
 
 
+
 class HomeScreen extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
+      isLoading: true,
       userPhoto: null,
     }
   }
@@ -86,11 +88,11 @@ class HomeScreen extends Component {
               />
             </TouchableOpacity>
 
-            <TouchableOpacity onPress={() => this.props.navigation.dispatch(DrawerActions.jumpTo('Posts'))} >
+            <TouchableOpacity onPress={() => this.props.navigation.navigate('Posts')} >
               <Text>Posts!</Text>
             </TouchableOpacity>
 
-            <TouchableOpacity onPress={() => this.props.navigation.dispatch(DrawerActions.jumpTo('All-Users'))} >
+            <TouchableOpacity onPress={() => this.props.navigation.navigate('All-Users')} >
               <Text>Find your friends!</Text>
             </TouchableOpacity>
 
@@ -100,8 +102,8 @@ class HomeScreen extends Component {
             <MyProfile />
           </View>
           <View style={styles.editButton}>
-            <TouchableOpacity  >
-              <Text>Edit Profile</Text>
+            <TouchableOpacity>
+              <Text onPress={() => this.props.navigation.navigate('EditProfile')} style={{color: '#FFFF'}}>Edit Profile</Text>
             </TouchableOpacity>
           </View>
         </View>
@@ -124,7 +126,8 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   editButton: {
-    width: 100, 
+    width: 100,
+    backgroundColor: '#100301',
   }
 });
 
