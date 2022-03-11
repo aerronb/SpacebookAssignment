@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Text, FlatList, StyleSheet, Button } from 'react-native';
+import { View, Text, FlatList, TouchableOpacity } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import styles from '../styling/styles';
 
@@ -47,6 +47,8 @@ class FriendRequests extends Component {
 
 
 
+
+
     render() {
 
         if (this.state.isLoading) {
@@ -65,6 +67,9 @@ class FriendRequests extends Component {
                             <View style={styles.centering}>
                                 <Text>{item.first_name} {item.last_name}</Text>
                                 <Text>{'\n'}</Text>
+                                <TouchableOpacity onPress={() => console.log(item.user_id)}>
+                                    <Text>ID</Text>
+                                </TouchableOpacity>
                             </View>
                         )}
                         keyExtractor={(item, index) => item.user_id.toString()}
