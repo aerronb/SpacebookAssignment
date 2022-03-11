@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
-import { View, Text, TouchableOpacity, Image, StyleSheet } from 'react-native';
+import { View, Text, TouchableOpacity, Image, Button } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { DrawerActions } from '@react-navigation/native';
 
 import MyProfile from '../components/profile';
+import styles from '../styling/styles';
 
 
 
@@ -63,12 +64,7 @@ class HomeScreen extends Component {
     if (this.state.isLoading) {
       return (
         <View
-          style={{
-            flex: 1,
-            flexDirection: 'column',
-            justifyContent: 'center',
-            alignItems: 'center',
-          }}>
+          style={styles.loading}>
           <Text>Loading..</Text>
         </View>
       );
@@ -81,10 +77,7 @@ class HomeScreen extends Component {
                 source={{
                   uri: this.state.userPhoto,
                 }}
-                style={{
-                  width: 50,
-                  height: 50,
-                }}
+                style={styles.photo}
               />
             </TouchableOpacity>
 
@@ -99,13 +92,21 @@ class HomeScreen extends Component {
           </View>
 
           <View>
+            
             <MyProfile />
+
           </View>
-          <View style={styles.editButton}>
-            <TouchableOpacity>
-              <Text onPress={() => this.props.navigation.navigate('EditProfile')} style={{color: '#FFFF'}}>Edit Profile</Text>
-            </TouchableOpacity>
+
+          <View style={styles.edit}>
+            <Button
+            color= '#808080'
+            title="Edit Profile"
+            onPress={() => this.props.navigation.navigate('EditProfile')} 
+            
+            
+            />
           </View>
+
         </View>
 
 
@@ -115,20 +116,5 @@ class HomeScreen extends Component {
   }
 }
 
-
-const styles = StyleSheet.create({
-  navBar: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    backgroundColor: '#fff'
-  },
-  container: {
-    flex: 1,
-  },
-  editButton: {
-    width: 100,
-    backgroundColor: '#100301',
-  }
-});
 
 export default HomeScreen;

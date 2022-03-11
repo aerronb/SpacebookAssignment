@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { View, Text, StyleSheet, FlatList } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import styles from '../styling/styles';
 
 
 class Posts extends Component {
@@ -64,14 +65,19 @@ class Posts extends Component {
             );
         } else {
             return (
-                <View>
+                <View style={styles.container}>
+                    <Text style={styles.centering}>
+                    POSTS ON YOUR WALL
+                    </Text>
                     <FlatList
                         data={this.state.allUserPosts}
                         renderItem={({ item }) => (
-                            <View style={styles.container}>
-                                <Text>{item.post_id}</Text>
-                                <Text>{item.text}</Text>
-                                <Text>{item.timestamp}</Text>
+                            <View style={styles.perPost}>
+                                <Text>POST ID:{''} {item.post_id}</Text>
+                                <Text>MESSAGE:{''} {item.text}</Text>
+                                <Text>TIME:{''} {item.timestamp}</Text>
+                                <Text>AUTHOR:{''} {item.author.first_name} {item.author.last_name}</Text>
+                                <Text>NUMBER OF LIKES:{''} {item.numLikes}</Text>
                             </View>
                         )}
                         keyExtractor={(item, index) => item.post_id.toString()}
@@ -82,13 +88,6 @@ class Posts extends Component {
     }
 }
 
-const styles = StyleSheet.create({
-    container: {
-        backgroundColor: '#fff',
-        alignItems: 'center',
-        flexDirection: 'space-around',
-    },
-});
 
 
 export default Posts;

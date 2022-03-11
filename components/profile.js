@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import styles from '../styling/styles';
 
 
 class MyProfile extends Component {
@@ -13,18 +14,13 @@ class MyProfile extends Component {
       myFirstName: "",
       myLastName: "",
       myEmail: "",
+      myFriends: ""
     }
   }
 
   componentDidMount() {
     this.getData();
   }
-
-  componentWillUnmount() {
-    this.unsubscribe();
-  }
-
-
 
   getData = async () => {
     const id = await AsyncStorage.getItem('@session_id');
@@ -42,6 +38,7 @@ class MyProfile extends Component {
           myFirstName: responseJson.first_name,
           myLastName: responseJson.last_name,
           myEmail: responseJson.email,
+          myFriends: responseJson.friend_count,
         })
       })
       .catch((error) => {
@@ -54,21 +51,22 @@ class MyProfile extends Component {
     if (this.state.isLoading) {
       return (
         <View
-          style={{
-            flex: 1,
-            flexDirection: 'column',
-            justifyContent: 'center',
-            alignItems: 'center',
-          }}>
+          style={styles.loading}>
           <Text>Loading..</Text>
         </View>
       );
     } else {
       return (
         <View>
-          <Text>{this.state.myFirstName}</Text>
-          <Text>{this.state.myLastName}</Text>
-          <Text>{this.state.myEmail}</Text>
+          <Text style={styles.userText}>
+            First Name:{''} {this.state.myFirstName}
+            {'\n'}
+            Last Name:{''} {this.state.myLastName}
+            {'\n'}
+            Email:{''} {this.state.myEmail}
+            {'\n'}
+            Friend Count:{''} {this.state.myFriends}
+          </Text>
         </View>
       );
     }
@@ -76,11 +74,5 @@ class MyProfile extends Component {
   }
 }
 
-
-const styles = StyleSheet.create({
-  container: {
-    backgroundColor: '#fff'
-  },
-});
 
 export default MyProfile;

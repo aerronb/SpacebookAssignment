@@ -1,6 +1,7 @@
 import React, { Component} from 'react';
 import { View, Text, FlatList, StyleSheet, TextInput } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import styles from '../styling/styles';
 
 
 class ShowAllPeople extends Component {
@@ -52,12 +53,7 @@ class ShowAllPeople extends Component {
         if (this.state.isLoading) {
             return (
                 <View
-                    style={{
-                        flex: 1,
-                        flexDirection: 'column',
-                        justifyContent: 'center',
-                        alignItems: 'center',
-                    }}>
+                    style={styles.loading}>
                     <Text>Loading..</Text>
                 </View>
             );
@@ -72,7 +68,7 @@ class ShowAllPeople extends Component {
                     <FlatList
                         data={this.state.allUserData}
                         renderItem={({ item }) => (
-                            <View style={styles.container}>
+                            <View style={styles.centering}>
                                 <Text>{item.user_givenname}</Text>
                                 <Text>{item.user_familyname}</Text>
                                 <Text>{'\n'}</Text>
@@ -86,16 +82,6 @@ class ShowAllPeople extends Component {
     }
 }
 
-const styles = StyleSheet.create({
-    container: {
-        backgroundColor: '#fff',
-        alignItems: 'center'
-    },
-    searchBar: {
-        backgroundColor: 'grey',
-        height: 20
-    },
-});
 
 
 export default ShowAllPeople;

@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Button } from 'react-native';
 import { ScrollView, TextInput } from 'react-native-gesture-handler';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import styles from '../styling/styles';
 
 class LoginScreen extends Component{
     constructor(props){
@@ -51,14 +52,14 @@ class LoginScreen extends Component{
                     placeholder="Enter your email..."
                     onChangeText={(email) => this.setState({email})}
                     value={this.state.email}
-                    style={{padding:5, borderWidth:1, margin:5}}
+                    style={styles.formInputs}
                 />
                 <TextInput
                     placeholder="Enter your password..."
                     onChangeText={(password) => this.setState({password})}
                     value={this.state.password}
                     secureTextEntry
-                    style={{padding:5, borderWidth:1, margin:5}}
+                    style={styles.formInputs}
                 />
                 <Button
                     title="Login"

@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Button, ScrollView, TextInput } from 'react-native';
+import styles from '../styling/styles';
 
 class SignupScreen extends Component{
     constructor(props){
@@ -48,26 +49,26 @@ class SignupScreen extends Component{
                     placeholder="Enter your first name..."
                     onChangeText={(first_name) => this.setState({first_name})}
                     value={this.state.first_name}
-                    style={{padding:5, borderWidth:1, margin:5}}
+                    style={styles.formInputs}
                 />
                 <TextInput
                     placeholder="Enter your last name..."
                     onChangeText={(last_name) => this.setState({last_name})}
                     value={this.state.last_name}
-                    style={{padding:5, borderWidth:1, margin:5}}
+                    style={styles.formInputs}
                 />
                 <TextInput
                     placeholder="Enter your email..."
                     onChangeText={(email) => this.setState({email})}
                     value={this.state.email}
-                    style={{padding:5, borderWidth:1, margin:5}}
+                    style={styles.formInputs}
                 />
                 <TextInput
                     placeholder="Enter your password..."
                     onChangeText={(password) => this.setState({password})}
                     value={this.state.password}
                     secureTextEntry
-                    style={{padding:5, borderWidth:1, margin:5}}
+                    style={styles.formInputs}
                 />
                 <Button
                     title="Create an account"

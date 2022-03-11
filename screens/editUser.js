@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { View, Text, StyleSheet, Button, TextInput } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import styles from '../styling/styles';
 
 
 class MyProfile extends Component {
@@ -99,49 +100,37 @@ class MyProfile extends Component {
         if (this.state.isLoading) {
             return (
                 <View
-                    style={{
-                        flex: 1,
-                        flexDirection: 'column',
-                        justifyContent: 'center',
-                        alignItems: 'center',
-                    }}>
+                    style={styles.loading}>
                     <Text>Loading..</Text>
                 </View>
             );
         } else {
             return (
                 <View>
-            <TextInput
-              placeholder="Enter first Name"
-              onChangeText={(first_name) => this.setState({first_name})}
-              value={this.state.first_name}
-            />
-            <TextInput
-              placeholder="Enter Last Name"
-              onChangeText={(last_name) => this.setState({last_name})}
-              value={this.state.last_name}
-            />
-            <TextInput
-              placeholder="Enter Email"
-              onChangeText={(email) => this.setState({email})}
-              value={this.state.email}
-            />
-            <Button
-              title="Update"
-              onPress={() => this.update()}
-            />
+                    <TextInput
+                        placeholder="Enter first Name"
+                        onChangeText={(first_name) => this.setState({ first_name })}
+                        value={this.state.first_name}
+                    />
+                    <TextInput
+                        placeholder="Enter Last Name"
+                        onChangeText={(last_name) => this.setState({ last_name })}
+                        value={this.state.last_name}
+                    />
+                    <TextInput
+                        placeholder="Enter Email"
+                        onChangeText={(email) => this.setState({ email })}
+                        value={this.state.email}
+                    />
+                    <Button style={styles.buttonSize}
+                        title="Update"
+                        onPress={() => this.update()}
+                    />
                 </View>
             );
         }
 
     }
 }
-
-
-const styles = StyleSheet.create({
-    container: {
-        backgroundColor: '#fff'
-    },
-});
 
 export default MyProfile;

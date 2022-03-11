@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { View, Text, FlatList, StyleSheet, Button } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import styles from '../styling/styles';
 
 
 class FriendRequests extends Component {
@@ -51,12 +52,7 @@ class FriendRequests extends Component {
         if (this.state.isLoading) {
             return (
                 <View
-                    style={{
-                        flex: 1,
-                        flexDirection: 'column',
-                        justifyContent: 'center',
-                        alignItems: 'center',
-                    }}>
+                    style={styles.loading}>
                     <Text>Loading..</Text>
                 </View>
             );
@@ -66,7 +62,7 @@ class FriendRequests extends Component {
                     <FlatList
                         data={this.state.friendsReqs}
                         renderItem={({ item }) => (
-                            <View style={styles.container}>
+                            <View style={styles.centering}>
                                 <Text>{item.first_name} {item.last_name}</Text>
                                 <Text>{'\n'}</Text>
                             </View>
@@ -79,10 +75,6 @@ class FriendRequests extends Component {
     }
 }
 
-const styles = StyleSheet.create({
-    container: {
-        backgroundColor: '#fff',
-    },
-});
+
 
 export default FriendRequests;
