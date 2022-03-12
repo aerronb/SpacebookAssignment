@@ -60,7 +60,7 @@ class YourFriend extends Component {
                     <FlatList
                         data={this.state.friends}
                         renderItem={({ item }) => (
-                            <View>
+                            <View style={styles.centering}>
                                 <Text>{item.user_givenname} {item.user_familyname}</Text>
                                 <Text>{item.user_email}</Text>
                                 <Text>{'\n'}</Text>

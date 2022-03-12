@@ -66,19 +66,20 @@ export default StyleSheet.create({
         margin:5,
         backgroundColor: "#cc0000"
     },
-
-    //profile
-    "userText": {
-        fontSize: 20,
-    },
-
+    //editUser
     "buttonSize": {
         width: 20,
     },
 
+    //profile
+    "userText": {
+        fontSize: 15,
+    },
+
     //home
     "edit": {
-        width: 150,
+        width: 130,
+        padding: 5,
     },
     "photo": {
         width: 50,

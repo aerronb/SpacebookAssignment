@@ -1,5 +1,5 @@
 import React, { Component} from 'react';
-import { View, Text, FlatList, StyleSheet, TextInput } from 'react-native';
+import { View, Text, FlatList, Button, TextInput } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import styles from '../styling/styles';
 
@@ -11,6 +11,7 @@ class ShowAllPeople extends Component {
         this.state = {
             isLoading: true,
             allUserData: [],
+            find_name: "",
         }
     }
 
@@ -19,9 +20,10 @@ class ShowAllPeople extends Component {
     }
 
 
-    getData = async () => {
+    getData = async (find_name) => {
         const value = await AsyncStorage.getItem('@session_token');
-        return fetch("http://localhost:3333/api/1.0.0/search", {
+        console.log(this.state.find_name);
+        return fetch('http://localhost:3333/api/1.0.0/search?q=' + this.state.find_name, {
             'headers': {
                 'X-Authorization': value
             }
@@ -47,6 +49,14 @@ class ShowAllPeople extends Component {
             })
     }
 
+
+
+////////NEEDS SEARCH IMPLEMENTED
+    encode = (first_name) => {
+        console.log(first_name);
+    };
+
+
     render() {
 
         if (this.state.isLoading) {
@@ -59,10 +69,15 @@ class ShowAllPeople extends Component {
         } else {
             return (
                 <View>
-                <TextInput style={styles.searchBar} 
-                    onChangeText={Text => {
-                        this.getData(Text);
-                    }}
+                <TextInput
+                    placeholder="Enter a name"
+                    onChangeText={(find_name) => this.setState({find_name})} 
+                    value={this.state.find_name}
+                    style={styles.formInputs}
+                />
+                <Button
+                    title="Find"
+                    onPress={() => this.getData()}
                 />
                     <FlatList
                         data={this.state.allUserData}
