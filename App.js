@@ -11,6 +11,7 @@ import LogoutScreen from './screens/logout';
 import PostScreen from './screens/posts';
 import FriendScreen from './screens/friends';
 import EditProfileScreen from './screens/editUser';
+import FriendRequestScreen from './components/friendRequests';
 
 const Drawer = createDrawerNavigator();
 
@@ -26,6 +27,7 @@ class App extends Component{
                     <Drawer.Screen name="Posts" component={PostScreen} options={{drawerLabel: () => null}}/>
                     <Drawer.Screen name="All-Users" component={FriendScreen} />
                     <Drawer.Screen name="EditProfile" component={EditProfileScreen} />
+                    <Drawer.Screen name="friendRequests" component={FriendRequestScreen} />
                 </Drawer.Navigator>
             </NavigationContainer>
         );

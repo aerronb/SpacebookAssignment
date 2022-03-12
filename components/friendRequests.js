@@ -7,10 +7,9 @@ import styles from '../styling/styles';
 class FriendRequests extends Component {
     constructor(props) {
         super(props);
-
         this.state = {
             isLoading: true,
-            friendsReqs: []
+            friendsReqs: [],
         }
     }
     componentDidMount() {
@@ -45,9 +44,89 @@ class FriendRequests extends Component {
             })
     }
 
+    accept = async (params) => {
+        const value = await AsyncStorage.getItem('@session_token');
+        return fetch("http://localhost:3333/api/1.0.0/friendrequests/" + params, {
+            method: 'post',
+            'headers': {
+                'X-Authorization': value,
+            }
+        })
+            .then((response) => {
+                if (response.status === 200) {
+                    return response.json()
+                } else if (response.status === 401) {
+                    this.props.navigation.navigate("Login");
+                } else {
+                    throw 'Something went wrong';
+                }
+            })
+            .then((responseJson) => {
+                this.setState({
+                    isLoading: false,
+                    friendsReqs: responseJson
+                })
+            })
+            .catch((error) => {
+                console.log(error);
+            })
+     }
 
-
-
+        accept = async (params) => {
+        const value = await AsyncStorage.getItem('@session_token');
+        return fetch("http://localhost:3333/api/1.0.0/friendrequests/" + params, {
+            method: 'post',
+            'headers': {
+                'X-Authorization': value,
+            }
+        })
+            .then((response) => {
+                if (response.status === 200) {
+                    return response.json()
+                } else if (response.status === 401) {
+                    this.props.navigation.navigate("Login");
+                } else {
+                    throw 'Something went wrong';
+                }
+            })
+            .then((responseJson) => {
+                this.setState({
+                    isLoading: false,
+                    friendsReqs: responseJson
+                })
+            })
+            .catch((error) => {
+                console.log(error);
+            })
+     }
+    
+     delete = async (params) => {
+        const value = await AsyncStorage.getItem('@session_token');
+        return fetch("http://localhost:3333/api/1.0.0/friendrequests/" + params, {
+            method: 'delete',
+            'headers': {
+                'X-Authorization': value,
+            }
+        })
+            .then((response) => {
+                if (response.status === 200) {
+                    return response.json()
+                } else if (response.status === 401) {
+                    this.props.navigation.navigate("Login");
+                } else {
+                    throw 'Something went wrong';
+                }
+            })
+            .then((responseJson) => {
+                this.setState({
+                    isLoading: false,
+                    friendsReqs: responseJson
+                })
+            })
+            .catch((error) => {
+                console.log(error);
+            })
+     }
 
     render() {
 
@@ -67,8 +146,11 @@ class FriendRequests extends Component {
                             <View style={styles.centering}>
                                 <Text>{item.first_name} {item.last_name}</Text>
                                 <Text>{'\n'}</Text>
-                                <TouchableOpacity onPress={() => console.log(item.user_id)}>
-                                    <Text>ID</Text>
+                                <TouchableOpacity style={styles.formInputsA} onPress={() => {this.accept(item.user_id)} }>
+                                    <Text>ACCEPT FRIEND REQUEST</Text>
+                                </TouchableOpacity>
+                                <TouchableOpacity style={styles.formInputsD} onPress={() => {this.delete(item.user_id)} }>
+                                    <Text>DELETE FRIEND REQUEST</Text>
                                 </TouchableOpacity>
                             </View>
                         )}

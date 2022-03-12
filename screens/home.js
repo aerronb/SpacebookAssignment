@@ -31,7 +31,8 @@ class HomeScreen extends Component {
 
   get_profile_image = async () => {
     const value = await AsyncStorage.getItem('@session_token');
-    fetch("http://localhost:3333/api/1.0.0/user/8/photo", {
+    const id =  await AsyncStorage.getItem('@session_id');
+    fetch("http://localhost:3333/api/1.0.0/user/" + id + "/photo", {
       method: 'GET',
       headers: {
         'X-Authorization': value

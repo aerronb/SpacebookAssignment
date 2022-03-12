@@ -17,7 +17,7 @@ class Friends extends Component {
             <View style={styles.container}>
                 <View style={styles.navBar}>
 
-                    <Text>Fill me in!!</Text>
+                    <Text>SearchBar</Text>
                 </View>
 
                 <View>

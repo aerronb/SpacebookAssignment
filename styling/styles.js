@@ -44,6 +44,20 @@ export default StyleSheet.create({
         height: 20,
     },
 
+    "formInputsA": {
+        padding:5, 
+        borderWidth:1, 
+        margin:5,
+        backgroundColor: "#99F9BC",
+    },
+
+    "formInputsD": {
+        padding:5, 
+        borderWidth:1, 
+        margin:5,
+        backgroundColor: "#cc0000"
+    },
+
     //profile
     "userText": {
         fontSize: 20,
