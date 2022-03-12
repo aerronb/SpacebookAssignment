@@ -53,18 +53,25 @@ export default StyleSheet.create({
         height: 20,
     },
 
-    "formInputsA": {
+    "formInputA": {
         padding:5, 
         borderWidth:1, 
         margin:5,
         backgroundColor: "#99F9BC",
     },
 
-    "formInputsD": {
+    "formInputD": {
         padding:5, 
         borderWidth:1, 
         margin:5,
         backgroundColor: "#cc0000"
+    },
+
+    "formInputS": {
+        padding:5, 
+        borderWidth:1, 
+        margin:5,
+        backgroundColor: "#C3FC95"
     },
     //editUser
     "buttonSize": {

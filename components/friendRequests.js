@@ -118,10 +118,10 @@ class FriendRequests extends Component {
                             <View style={styles.centering}>
                                 <Text>{item.first_name} {item.last_name}</Text>
                                 <Text>{'\n'}</Text>
-                                <TouchableOpacity style={styles.formInputsA} onPress={() => {this.accept(item.user_id)} }>
+                                <TouchableOpacity style={styles.formInputA} onPress={() => {this.accept(item.user_id)} }>
                                     <Text>ACCEPT FRIEND REQUEST</Text>
                                 </TouchableOpacity>
-                                <TouchableOpacity style={styles.formInputsD} onPress={() => {this.delete(item.user_id)} }>
+                                <TouchableOpacity style={styles.formInputD} onPress={() => {this.delete(item.user_id)} }>
                                     <Text>DELETE FRIEND REQUEST</Text>
                                 </TouchableOpacity>
                             </View>

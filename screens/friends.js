@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { View, Text, ScrollView } from 'react-native';
 import FriendRequests from '../components/friendRequests';
 import ShowAllPeople from '../components/showAllPeople';
+
 import styles from '../styling/styles';
 
 
