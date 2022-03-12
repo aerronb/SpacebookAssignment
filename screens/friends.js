@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import { View, Text, ScrollView } from 'react-native';
 import FriendRequests from '../components/friendRequests';
 import ShowAllPeople from '../components/showAllPeople';
 import styles from '../styling/styles';
@@ -14,7 +14,7 @@ class Friends extends Component {
     }
     render() {
         return (
-            <View style={styles.container}>
+            <ScrollView style={styles.container}>
                 <View style={styles.navBar}>
 
                     <Text>SearchBar</Text>
@@ -30,7 +30,7 @@ class Friends extends Component {
                     </Text>
                     <FriendRequests />
                 </View>
-            </View>
+            </ScrollView>
 
 
         );

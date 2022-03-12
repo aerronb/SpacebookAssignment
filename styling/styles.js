@@ -4,6 +4,7 @@ export default StyleSheet.create({
     //used across components and screens
     "centering": {
         alignSelf: 'center',
+        alignItems: 'center',
     },
 
     "container": {
@@ -26,6 +27,14 @@ export default StyleSheet.create({
     "heading2":{
         backgroundColor: '#ADD8E6',
     },
+    "subHeader": {
+        backgroundColor : '#ADD8E6',
+        color : "#ffff",
+        textAlign : "center",
+        paddingVertical : 5,
+        marginBottom : 10
+      },
+
     "perPost": {
         borderTopWidth: 3,
         borderTopColor: '#8A4A64',

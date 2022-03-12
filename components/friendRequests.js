@@ -71,34 +71,6 @@ class FriendRequests extends Component {
                 console.log(error);
             })
      }
-
-        accept = async (params) => {
-        const value = await AsyncStorage.getItem('@session_token');
-        return fetch("http://localhost:3333/api/1.0.0/friendrequests/" + params, {
-            method: 'post',
-            'headers': {
-                'X-Authorization': value,
-            }
-        })
-            .then((response) => {
-                if (response.status === 200) {
-                    return response.json()
-                } else if (response.status === 401) {
-                    this.props.navigation.navigate("Login");
-                } else {
-                    throw 'Something went wrong';
-                }
-            })
-            .then((responseJson) => {
-                this.setState({
-                    isLoading: false,
-                    friendsReqs: responseJson
-                })
-            })
-            .catch((error) => {
-                console.log(error);
-            })
-     }
     
      delete = async (params) => {
         const value = await AsyncStorage.getItem('@session_token');

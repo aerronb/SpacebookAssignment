@@ -1,19 +1,17 @@
-import React, { Component} from 'react';
-import { View, Text, FlatList, StyleSheet, TextInput } from 'react-native';
+import React, { Component } from 'react';
+import { View, Text, FlatList } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import styles from '../styling/styles';
 
 
-class ShowAllPeople extends Component {
+class YourFriend extends Component {
     constructor(props) {
         super(props);
-
         this.state = {
             isLoading: true,
-            allUserData: [],
+            friends: [],
         }
     }
-
     componentDidMount() {
         this.getData();
     }
@@ -21,7 +19,7 @@ class ShowAllPeople extends Component {
 
     getData = async () => {
         const value = await AsyncStorage.getItem('@session_token');
-        return fetch("http://localhost:3333/api/1.0.0/search", {
+        return fetch("http://localhost:3333/api/1.0.0/user/8/friends", {
             'headers': {
                 'X-Authorization': value
             }
@@ -38,14 +36,14 @@ class ShowAllPeople extends Component {
             .then((responseJson) => {
                 this.setState({
                     isLoading: false,
-                    allUserData: responseJson
+                    friends: responseJson
                 })
-                console.log(responseJson)
             })
             .catch((error) => {
                 console.log(error);
             })
     }
+
 
     render() {
 
@@ -59,17 +57,12 @@ class ShowAllPeople extends Component {
         } else {
             return (
                 <View>
-                <TextInput style={styles.searchBar} 
-                    onChangeText={Text => {
-                        this.getData(Text);
-                    }}
-                />
                     <FlatList
-                        data={this.state.allUserData}
+                        data={this.state.friends}
                         renderItem={({ item }) => (
-                            <View style={styles.centering}>
-                                <Text>{item.user_givenname}</Text>
-                                <Text>{item.user_familyname}</Text>
+                            <View>
+                                <Text>{item.user_givenname} {item.user_familyname}</Text>
+                                <Text>{item.user_email}</Text>
                                 <Text>{'\n'}</Text>
                             </View>
                         )}
@@ -81,6 +74,4 @@ class ShowAllPeople extends Component {
     }
 }
 
-
-
-export default ShowAllPeople;
+export default YourFriend;

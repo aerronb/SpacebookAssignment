@@ -5,6 +5,7 @@ import { DrawerActions } from '@react-navigation/native';
 
 import MyProfile from '../components/profile';
 import styles from '../styling/styles';
+import YourFriend from '../components/yourFriends';
 
 
 
@@ -93,9 +94,7 @@ class HomeScreen extends Component {
           </View>
 
           <View>
-            
             <MyProfile />
-
           </View>
 
           <View style={styles.edit}>
@@ -103,9 +102,11 @@ class HomeScreen extends Component {
             color= '#808080'
             title="Edit Profile"
             onPress={() => this.props.navigation.navigate('EditProfile')} 
-            
-            
             />
+          </View>
+          <View style={styles.centering}>
+            <Text style={styles.subHeader}>YOUR FRIENDS</Text>
+            <YourFriend />
           </View>
 
         </View>
