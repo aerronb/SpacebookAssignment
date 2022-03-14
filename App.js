@@ -12,6 +12,9 @@ import PostScreen from './screens/posts';
 import FriendScreen from './screens/friends';
 import EditProfileScreen from './screens/editUser';
 import FriendRequestScreen from './components/friendRequests';
+import friendsAllScreen from './screens/friendsHome';
+import friendsProfScreen from './screens/friendsWall';
+import showAllScreen from './components/showAllPeople';
 
 const Drawer = createDrawerNavigator();
 
@@ -28,6 +31,9 @@ class App extends Component{
                     <Drawer.Screen name="All-Users" component={FriendScreen} />
                     <Drawer.Screen name="EditProfile" component={EditProfileScreen} />
                     <Drawer.Screen name="friendRequests" component={FriendRequestScreen} />
+                    <Drawer.Screen name="FriendsHome" component={friendsAllScreen} />
+                    <Drawer.Screen name="FriendsWall" component={friendsProfScreen} />
+                    <Drawer.Screen name="ShowAllPeople" component={showAllScreen} />
                 </Drawer.Navigator>
             </NavigationContainer>
         );

@@ -73,6 +73,17 @@ export default StyleSheet.create({
         margin:5,
         backgroundColor: "#C3FC95"
     },
+
+    "editPost": {
+        width: 130,
+        padding: 5,
+    },
+
+    "deletePost": {
+        width: 130,
+        padding: 5,
+    },
+
     //editUser
     "buttonSize": {
         width: 20,

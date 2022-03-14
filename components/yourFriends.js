@@ -4,7 +4,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import styles from '../styling/styles';
 
 
-class YourFriend extends Component {
+class YourFriends extends Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -74,4 +74,4 @@ class YourFriend extends Component {
     }
 }
 
-export default YourFriend;
+export default YourFriends;

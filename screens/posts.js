@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Text, StyleSheet, FlatList } from 'react-native';
+import { View, Text, FlatList, TouchableOpacity } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import styles from '../styling/styles';
 
@@ -22,7 +22,7 @@ class Posts extends Component {
     getData = async () => {
         const value = await AsyncStorage.getItem('@session_token');
         return fetch("http://localhost:3333/api/1.0.0/user/8/post", {
-            method: 'GET',
+            method: 'get',
             headers: {
                 'X-Authorization': value
             }
@@ -40,6 +40,34 @@ class Posts extends Component {
                 this.setState({
                     isLoading: false,
                     allUserPosts: responseJson
+                })
+            })
+            .catch((error) => {
+                console.log(error);
+            });
+    }
+
+    addLike = async (params) => {
+        const value = await AsyncStorage.getItem('@session_token');
+        return fetch("http://localhost:3333/api/1.0.0/user/"+ params +"/post/" + params + "/like", {
+            method: 'post',
+            headers: {
+                'X-Authorization': value
+            }
+        })
+            .then((response) => {
+                if (response.status === 200) {
+                    numLikes + 1
+                } else if (response.status === 401) {
+                    this.props.navigation.navigate("Login");
+                } else {
+                    throw 'Something went wrong';
+                }
+            })
+            .then((responseJson) => {
+                this.setState({
+                    isLoading: false,
+                    numLikes: + 1,
                 })
             })
             .catch((error) => {
@@ -78,6 +106,9 @@ class Posts extends Component {
                                 <Text>TIME:{''} {item.timestamp}</Text>
                                 <Text>AUTHOR:{''} {item.author.first_name} {item.author.last_name}</Text>
                                 <Text>NUMBER OF LIKES:{''} {item.numLikes}</Text>
+                                <TouchableOpacity style={styles.formInputD} onPress={() => {this.addLike(item.author.user_id)} }>
+                                    <Text>Add Like</Text>
+                                </TouchableOpacity>
                             </View>
                         )}
                         keyExtractor={(item, index) => item.post_id.toString()}

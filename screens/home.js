@@ -109,6 +109,13 @@ class HomeScreen extends Component {
             <YourFriend />
           </View>
 
+          <View>
+            <Button
+              title="send a new post"
+              onPress={ () => this.props.navigation.navigate('FriendsHome')}
+            />
+          </View>
+
         </View>
 
 

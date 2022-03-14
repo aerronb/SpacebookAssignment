@@ -76,6 +76,7 @@ class ShowAllPeople extends Component {
      }
 
 
+
     render() {
 
         if (this.state.isLoading) {
@@ -102,8 +103,8 @@ class ShowAllPeople extends Component {
                         data={this.state.allUserData}
                         renderItem={({ item }) => (
                             <View style={styles.centering}>
-                                <Text>{item.user_givenname}</Text>
-                                <Text>{item.user_familyname}</Text>
+                                    <Text>{item.user_givenname}</Text>
+                                    <Text>{item.user_familyname}</Text>
                                 <TouchableOpacity style={styles.formInputS} onPress={() => {this.send(item.user_id)} }>
                                     <Text>SEND FRIEND REQUEST</Text>
                                 </TouchableOpacity>
