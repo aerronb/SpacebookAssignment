@@ -80,6 +80,34 @@ class FriendsWall extends Component {
             });
     }
 
+    addLike = async (params) => {
+        const value = await AsyncStorage.getItem('@session_token');
+        const id = await AsyncStorage.getItem('@session_id');
+        return fetch("http://localhost:3333/api/1.0.0/user/" + this.props.route.params.friend_id + "/post/" + params + "/like", {
+            method: 'post',
+            headers: {
+                'X-Authorization': value
+            }
+        })
+            .then((response) => {
+                if (response.status === 200) {
+                    return response.json()
+                } else if (response.status === 401) {
+                    this.props.navigation.navigate("Login");
+                } else {
+                    throw 'Something went wrong';
+                }
+            })
+            .then((responseJson) => {
+                this.setState({
+                    isLoading: false,
+                })
+            })
+            .catch((error) => {
+                console.log(error);
+            });
+    }
+
   
     render() {
   
@@ -115,7 +143,8 @@ class FriendsWall extends Component {
                                     <Text>POST ID:{''} {item.post_id}</Text>
                                     <Text>MESSAGE:{''} {item.text}</Text>
                                     <Text>TIME:{''} {item.timestamp}</Text>
-                                    <TouchableOpacity>
+                                    <Text>NUMBER OF LIKES:{''} {item.numLikes}</Text>
+                                    <TouchableOpacity onPress={ () => {this.addLike(item.post_id)}}>
                                         <Text>Like Post</Text>
                                     </TouchableOpacity>
                                 </Pressable>
