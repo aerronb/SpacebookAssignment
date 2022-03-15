@@ -77,11 +77,12 @@ export default StyleSheet.create({
     "editPost": {
         width: 130,
         padding: 5,
+        flexDirection: 'row',
     },
 
     "deletePost": {
         width: 130,
-        padding: 5,
+        flexDirection: 'row',
     },
 
     //editUser

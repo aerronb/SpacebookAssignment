@@ -65,7 +65,7 @@ render() {
     } else {
         return (
             <View>
-                <Text style={styles.subHeader}>POST ON YOUR FRIENDS PAGES</Text>
+                <Text style={styles.subHeader}>CHOOSE A FRIENDS PAGES</Text>
                     <FlatList
                         data={this.state.friends}
                         renderItem={({ item }) => (

@@ -16,21 +16,22 @@ class FriendsWall extends Component {
         myLastName: "",
         myEmail: "",
         myFriends: "",
-        allUserPosts: []
+        allUserPosts: [],
+        post: {post_id: null, post_text: null, post_timestamp: null, author_name: null, numOfLikes: null,}
       }
     }
   
     componentDidMount() {
-
       this.getData();
       this.getPost();
+
     }
 
 
   
     getData = async () => {
       const value = await AsyncStorage.getItem('@session_token');
-      return fetch("http://localhost:3333/api/1.0.0/user/" + this.props.route.params.friend_id, {
+      return fetch("http://localhost:3333/api/1.0.0/user/" + this.props.route.params.info.friend_id, {
         method: 'GET',
         headers: {
           'X-Authorization': value
@@ -54,7 +55,7 @@ class FriendsWall extends Component {
 
     getPost = async () => {
         const value = await AsyncStorage.getItem('@session_token');
-        return fetch("http://localhost:3333/api/1.0.0/user/" + this.props.route.params.friend_id + "/post", {
+        return fetch("http://localhost:3333/api/1.0.0/user/" + this.props.route.params.info.friend_id + "/post/" + this.props.route.params.info.post_id , {
             method: 'get',
             headers: {
                 'X-Authorization': value
@@ -70,9 +71,17 @@ class FriendsWall extends Component {
                 }
             })
             .then((responseJson) => {
+                console.log(responseJson);
                 this.setState({
                     isLoading: false,
-                    allUserPosts: responseJson
+                    post: {
+                        id: responseJson.post_id,
+                        text: responseJson.text,
+                        timestamp: responseJson.timestamp,
+                        authorFirstName: responseJson.author.first_name,
+                        authorLastName: responseJson.author.last_name,
+                        numOfLikes: responseJson.numLikes
+                    }
                 })
             })
             .catch((error) => {
@@ -82,7 +91,7 @@ class FriendsWall extends Component {
 
   
     render() {
-  
+    
       if (this.state.isLoading) {
         return (
           <View
@@ -92,40 +101,23 @@ class FriendsWall extends Component {
         );
       } else {
         return (
-          <View style={styles.flex}>
-            <Text style={styles.subHeader}>
-              {this.state.myFirstName} {this.state.myLastName} PROFILE PAGE
-              FRIEND COUNT:{''} {this.state.myFriends}
-            </Text>
+            <View style={styles.flex}>
+                <Text style={styles.subHeader}>
+                {this.state.myFirstName} {this.state.myLastName} POSTS
+                </Text>
             <View style={styles.container}>
                     <Text style={styles.centering}>
                     POSTS
                     </Text>
-                    <FlatList
-                        data={this.state.allUserPosts}
-                        renderItem={({ item }) => (
-                            <View style={styles.perPost}>
-                                <Pressable onPress={() => this.props.navigation.navigate('singlePost', {
-                                    info: {
-                                        friend_id: this.state.myid,
-                                        post_id: item.post_id,
-                                    }
-
-                                })}>
-                                    <Text>POST ID:{''} {item.post_id}</Text>
-                                    <Text>MESSAGE:{''} {item.text}</Text>
-                                    <Text>TIME:{''} {item.timestamp}</Text>
-                                    <TouchableOpacity>
-                                        <Text>Like Post</Text>
-                                    </TouchableOpacity>
-                                </Pressable>
-                            </View>
-                        )}
-                        keyExtractor={(item, index) => item.post_id.toString()}
-                    />
-                </View>
+                        <View style={styles.perPost}>
+                            <Text>POST ID:{''} {this.state.post.id}</Text>
+                            <Text>MESSAGE:{''} {this.state.post.text}</Text>
+                            <Text>TIME:{''} {this.state.post.timestamp}</Text>
+                            <Text>Author:{''} {this.state.post.authorFirstName} {''} {this.state.post.authorLastName}</Text>
+                        </View>
+            </View>
  
-          </View>
+        </View>
         );
       }
   

@@ -11,10 +11,7 @@ class MyProfile extends Component {
 
     this.state = {
       isLoading: true,
-      myFirstName: "",
-      myLastName: "",
-      myEmail: "",
-      myFriends: ""
+      allYourData: [],
     }
   }
 
@@ -35,10 +32,10 @@ class MyProfile extends Component {
       .then((responseJson) => {
         this.setState({
           isLoading: false,
-          myFirstName: responseJson.first_name,
-          myLastName: responseJson.last_name,
-          myEmail: responseJson.email,
-          myFriends: responseJson.friend_count,
+            myFirstName: responseJson.first_name,
+            myLastName: responseJson.last_name,
+            myEmail: responseJson.email,
+            myFriends: responseJson.friend_count,
         })
       })
       .catch((error) => {
