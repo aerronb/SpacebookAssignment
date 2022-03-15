@@ -7,55 +7,55 @@ import styles from '../styling/styles';
 
 
 class FriendsWall extends Component {
-  constructor(props) {
-    super(props);
+    constructor(props) {
+        super(props);
 
-    this.state = {
-        isLoading: true,
-        myFirstName: "",
-        myLastName: "",
-        myEmail: "",
-        myFriends: "",
-        allUserPosts: [],
-        post: {post_id: null, post_text: null, post_timestamp: null, author_name: null, numOfLikes: null,}
-      }
-    }
-  
-    componentDidMount() {
-      this.getData();
-      this.getPost();
-
-    }
-
-
-  
-    getData = async () => {
-      const value = await AsyncStorage.getItem('@session_token');
-      return fetch("http://localhost:3333/api/1.0.0/user/" + this.props.route.params.info.friend_id, {
-        method: 'GET',
-        headers: {
-          'X-Authorization': value
+        this.state = {
+            isLoading: true,
+            myFirstName: "",
+            myLastName: "",
+            myEmail: "",
+            myFriends: "",
+            allUserPosts: [],
+            post: { post_id: null, post_text: null, post_timestamp: null, author_name: null, numOfLikes: null, }
         }
-      })
-        .then((response) => response.json())
-        .then((responseJson) => {
-          this.setState({
-            isLoading: false,
-            myid: responseJson.user_id,
-            myFirstName: responseJson.first_name,
-            myLastName: responseJson.last_name,
-            myEmail: responseJson.email,
-            myFriends: responseJson.friend_count,
-          })
+    }
+
+    componentDidMount() {
+        this.getData();
+        this.getPost();
+
+    }
+
+
+
+    getData = async () => {
+        const value = await AsyncStorage.getItem('@session_token');
+        return fetch("http://localhost:3333/api/1.0.0/user/" + this.props.route.params.info.friend_id, {
+            method: 'GET',
+            headers: {
+                'X-Authorization': value
+            }
         })
-        .catch((error) => {
-          console.log(error);
-        });
+            .then((response) => response.json())
+            .then((responseJson) => {
+                this.setState({
+                    isLoading: false,
+                    myid: responseJson.user_id,
+                    myFirstName: responseJson.first_name,
+                    myLastName: responseJson.last_name,
+                    myEmail: responseJson.email,
+                    myFriends: responseJson.friend_count,
+                })
+            })
+            .catch((error) => {
+                console.log(error);
+            });
     }
 
     getPost = async () => {
         const value = await AsyncStorage.getItem('@session_token');
-        return fetch("http://localhost:3333/api/1.0.0/user/" + this.props.route.params.info.friend_id + "/post/" + this.props.route.params.info.post_id , {
+        return fetch("http://localhost:3333/api/1.0.0/user/" + this.props.route.params.info.friend_id + "/post/" + this.props.route.params.info.post_id, {
             method: 'get',
             headers: {
                 'X-Authorization': value
@@ -89,40 +89,41 @@ class FriendsWall extends Component {
             });
     }
 
-  
+
     render() {
-    
-      if (this.state.isLoading) {
-        return (
-          <View
-            style={styles.loading}>
-            <Text>Loading..</Text>
-          </View>
-        );
-      } else {
-        return (
-            <View style={styles.flex}>
-                <Text style={styles.subHeader}>
-                {this.state.myFirstName} {this.state.myLastName} POSTS
-                </Text>
-            <View style={styles.container}>
-                    <Text style={styles.centering}>
-                    POSTS
+
+        if (this.state.isLoading) {
+            return (
+                <View
+                    style={styles.loading}>
+                    <Text>Loading..</Text>
+                </View>
+            );
+        } else {
+            return (
+                <View style={styles.flex}>
+                    <Text style={styles.subHeader}>
+                        {this.state.myFirstName} {this.state.myLastName} POSTS
                     </Text>
+                    <View style={styles.container}>
+                        <Text style={styles.centering}>
+                            POSTS
+                        </Text>
                         <View style={styles.perPost}>
                             <Text>POST ID:{''} {this.state.post.id}</Text>
                             <Text>MESSAGE:{''} {this.state.post.text}</Text>
                             <Text>TIME:{''} {this.state.post.timestamp}</Text>
                             <Text>Author:{''} {this.state.post.authorFirstName} {''} {this.state.post.authorLastName}</Text>
                         </View>
-            </View>
- 
-        </View>
-        );
-      }
-  
+                    
+                    </View>
+
+                </View>
+            );
+        }
+
     }
-  }
-  
-  
-  export default FriendsWall;
+}
+
+
+export default FriendsWall;
