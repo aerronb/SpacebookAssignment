@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
-import { View, Text, FlatList, Button, TouchableOpacity, Pressable } from 'react-native';
+import { View, Text, TextInput, Button } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 import styles from '../styling/styles';
+
 
 
 
@@ -17,7 +18,9 @@ class FriendsWall extends Component {
             myEmail: "",
             myFriends: "",
             allUserPosts: [],
-            post: { post_id: null, post_text: null, post_timestamp: null, author_name: null, numOfLikes: null, }
+            post: { post_id: "", post_text: "", post_timestamp: "", author_name: "", numOfLikes: "", },
+            updateText: "",
+            text: ""
         }
     }
 
@@ -89,6 +92,38 @@ class FriendsWall extends Component {
             });
     }
 
+    update = async () => {
+
+
+        let update = {};
+
+        if (this.state.updateText != this.state.text) {
+            update['post_text'] = this.state.updateText;
+        }
+        const id = await AsyncStorage.getItem('@session_id');
+        const value = await AsyncStorage.getItem('@session_token');
+        return fetch("http://localhost:3333/api/1.0.0/user/" + this.props.route.params.info.friend_id + "/post/" + this.props.route.params.info.post_id, {
+            method: 'PATCH',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-Authorization': value
+            },
+            body: JSON.stringify(this.state)
+        })
+            .then((response) => {
+                if (response.status === 200) {
+                    alert("Success Changed")
+                } else if (response.status === 401) {
+                    this.props.navigation.navigate("Login");
+                } else {
+                    throw 'Something went wrong';
+                }
+            })
+            .catch((error) => {
+                console.log(error);
+            })
+    }
+
 
     render() {
 
@@ -103,19 +138,27 @@ class FriendsWall extends Component {
             return (
                 <View style={styles.flex}>
                     <Text style={styles.subHeader}>
-                        {this.state.myFirstName} {this.state.myLastName} POSTS
+                        {this.state.myFirstName} {this.state.myLastName} POST
                     </Text>
                     <View style={styles.container}>
-                        <Text style={styles.centering}>
-                            POSTS
-                        </Text>
                         <View style={styles.perPost}>
                             <Text>POST ID:{''} {this.state.post.id}</Text>
                             <Text>MESSAGE:{''} {this.state.post.text}</Text>
                             <Text>TIME:{''} {this.state.post.timestamp}</Text>
                             <Text>Author:{''} {this.state.post.authorFirstName} {''} {this.state.post.authorLastName}</Text>
                         </View>
-                    
+                        <View>
+                            <TextInput
+                                placeholder="Enter new Text Data"
+                                onChangeText={(text) => this.setState({ text })}
+                                value={this.state.text}
+                            />
+
+                            <Button style={styles.buttonSize}
+                                title="Update"
+                                onPress={() => this.update()}
+                            />
+                        </View>
                     </View>
 
                 </View>
