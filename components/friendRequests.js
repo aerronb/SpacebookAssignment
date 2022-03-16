@@ -26,7 +26,7 @@ class FriendRequests extends Component {
         })
             .then((response) => {
                 if (response.status === 200) {
-                    return response.json()
+                    console.log("Friend requests are showing")
                 } else if (response.status === 401) {
                     this.props.navigation.navigate("Login");
                 } else {
@@ -54,7 +54,8 @@ class FriendRequests extends Component {
         })
             .then((response) => {
                 if (response.status === 200) {
-                    return response.json()
+                    alert("accepted request")
+                    window.location.reload(false)
                 } else if (response.status === 401) {
                     this.props.navigation.navigate("Login");
                 } else {
@@ -82,7 +83,7 @@ class FriendRequests extends Component {
         })
             .then((response) => {
                 if (response.status === 200) {
-                    return response.json()
+                    alert("friend request rejected")
                 } else if (response.status === 401) {
                     this.props.navigation.navigate("Login");
                 } else {

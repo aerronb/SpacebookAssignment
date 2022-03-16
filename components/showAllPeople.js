@@ -56,8 +56,8 @@ class ShowAllPeople extends Component {
             }
         })
             .then((response) => {
-                if (response.status === 200) {
-                    return response.json()
+                if (response.status === 200 || 201) {
+                    alert("successfully sent request")
                 } else if (response.status === 401) {
                     this.props.navigation.navigate("Login");
                 } else {
@@ -67,7 +67,6 @@ class ShowAllPeople extends Component {
             .then((responseJson) => {
                 this.setState({
                     isLoading: false,
-                    friendsReqs: responseJson
                 })
             })
             .catch((error) => {

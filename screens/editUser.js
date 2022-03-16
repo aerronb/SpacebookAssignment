@@ -24,10 +24,6 @@ class MyProfile extends Component {
         this.getData();
     }
 
-    componentWillUnmount() {
-        this.unsubscribe();
-    }
-
 
 
     getData = async () => {
@@ -125,6 +121,10 @@ class MyProfile extends Component {
                     <Button style={styles.buttonSize}
                         title="Update"
                         onPress={() => this.update()}
+                    />
+                    <Button
+                    title="Take a new photo"
+                    onPress={() => this.props.navigation.navigate("newPhoto") }
                     />
                 </View>
             );

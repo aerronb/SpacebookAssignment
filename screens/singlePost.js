@@ -7,7 +7,7 @@ import styles from '../styling/styles';
 
 
 
-class FriendsWall extends Component {
+class SinglePost extends Component {
     constructor(props) {
         super(props);
 
@@ -74,7 +74,6 @@ class FriendsWall extends Component {
                 }
             })
             .then((responseJson) => {
-                console.log(responseJson);
                 this.setState({
                     isLoading: false,
                     post: {
@@ -169,4 +168,4 @@ class FriendsWall extends Component {
 }
 
 
-export default FriendsWall;
+export default SinglePost;

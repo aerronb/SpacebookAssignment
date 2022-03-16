@@ -16,6 +16,7 @@ import friendsAllScreen from './screens/friendsHome';
 import friendsProfScreen from './screens/friendsWall';
 import showAllScreen from './components/showAllPeople';
 import singlePostScreen from './screens/singlePost';
+import photoScreen from './screens/newPhoto';
 
 const Drawer = createDrawerNavigator();
 
@@ -23,7 +24,7 @@ class App extends Component{
     render(){
         return (
             <NavigationContainer>
-                <Drawer.Navigator initialRouteName="Friends">
+                <Drawer.Navigator>
                     <Drawer.Screen name="Home" component={HomeScreen} />
                     <Drawer.Screen name="Login" component={LoginScreen} />
                     <Drawer.Screen name="Signup" component={SignupScreen} />
@@ -36,6 +37,7 @@ class App extends Component{
                     <Drawer.Screen name="FriendsWall" component={friendsProfScreen} />
                     <Drawer.Screen name="ShowAllPeople" component={showAllScreen} />
                     <Drawer.Screen name="singlePost" component={singlePostScreen} />
+                    <Drawer.Screen name="newPhoto" component={photoScreen} />
                 </Drawer.Navigator>
             </NavigationContainer>
         );
