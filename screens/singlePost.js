@@ -108,7 +108,7 @@ class SinglePost extends Component {
                     this.props.navigation.navigate("Login");
                 } else if (response.status === 403) {
                     alert("You can only delete your own posts.");
-                }else {
+                } else {
                     throw 'Something went wrong';
                 }
             })

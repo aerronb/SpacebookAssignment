@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Text, FlatList, TouchableOpacity } from 'react-native';
+import { View, Text, FlatList, Modal, Button, TextInput } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import styles from '../styling/styles';
 
@@ -10,7 +10,9 @@ class Posts extends Component {
 
         this.state = {
             isLoading: true,
-            allUserPosts: []
+            allUserPosts: [],
+            modalVisible: false,
+            text: "",
         }
 
     }
@@ -34,7 +36,7 @@ class Posts extends Component {
                 } else if (response.status === 401) {
                     this.props.navigation.navigate("Login");
                 } else if (response.status === 403) {
-                    alert("You can only view your the posts on your wall or your friends wall");
+                    alert("You can only view the posts on your wall or your friends wall");
                 } else {
                     throw 'Something went wrong';
                 }
@@ -51,6 +53,79 @@ class Posts extends Component {
     }
 
 
+    update = async (params) => {
+
+
+        let update = {};
+
+        if (this.state.updateText != this.state.text) {
+            update['post_text'] = this.state.updateText;
+        }
+        const id = await AsyncStorage.getItem('@session_id');
+        const value = await AsyncStorage.getItem('@session_token');
+        return fetch("http://localhost:3333/api/1.0.0/user/" + id + "/post/" + params, {
+            method: 'PATCH',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-Authorization': value
+            },
+            body: JSON.stringify(this.state)
+        })
+            .then((response) => {
+                if (response.status === 200) {
+                    alert("Successfully Changed")
+                    window.location.reload()
+                } else if (response.status === 401) {
+                    alert("You must Login first");
+                    this.props.navigation.navigate("Login");
+                } else if (response.status === 403) {
+                    alert("You can only change your own posts. Please pick a post you have made.");
+                    window.location.reload();
+                } else {
+                    throw 'Something went wrong';
+                }
+            })
+            .catch((error) => {
+                console.log(error);
+            })
+    }
+
+    isTextEntered(params) {
+        if (!this.state.text.trim()) {
+            alert("cannot leave this empty");
+        }
+        else {
+            this.update(params)
+        }
+    }
+
+    newPost = async () => {
+        const id = await AsyncStorage.getItem('@session_id');
+        const value = await AsyncStorage.getItem('@session_token');
+        return fetch("http://localhost:3333/api/1.0.0/user/" + id + "/post", {
+            method: 'post',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-Authorization': value
+            },
+            body: JSON.stringify(this.state)
+        })
+            .then((response) => {
+                if (response.status === 201) {
+                    alert("Post has been created. Please refresh to see!")
+                    return response.json()
+                }else if (response.status === 401) {
+                    this.props.navigation.navigate("Login");
+                } else if (response.status === 404) {
+                    throw 'Not found';
+                } else {
+                    throw 'Something went wrong';
+                }
+            })
+            .catch((error) => {
+                console.log(error);
+            })
+    }
 
 
 
@@ -72,7 +147,7 @@ class Posts extends Component {
             return (
                 <View style={styles.container}>
                     <Text style={styles.centering}>
-                    POSTS ON YOUR WALL
+                        POSTS ON YOUR WALL
                     </Text>
                     <FlatList
                         data={this.state.allUserPosts}
@@ -83,9 +158,61 @@ class Posts extends Component {
                                 <Text>TIME:{''} {item.timestamp}</Text>
                                 <Text>AUTHOR:{''} {item.author.first_name} {item.author.last_name}</Text>
                                 <Text>NUMBER OF LIKES:{''} {item.numLikes}</Text>
+
+                                <View>
+                                    <Modal
+                                        animationType={"fade"}
+                                        transparent={false}
+                                        visible={this.state.modalVisible}
+                                    >
+                                        <View style={styles.center}>
+                                            <TextInput
+
+                                                placeholder="Enter new Text Data"
+                                                onChangeText={(text) => this.setState({ text })}
+                                                value={this.state.text}
+                                            />
+
+                                            <Button
+                                                title="Update"
+                                                onPress={() => this.isTextEntered(item.post_id)}
+                                            />
+
+                                            <Button
+                                                title="Close"
+                                                onPress={() => this.setState({ modalVisible: false })}
+                                            />
+                                        </View>
+                                    </Modal>
+
+                                    <Button
+                                        title="Click To update your post"
+                                        onPress={() => { this.setState({ modalVisible: true }) }}
+                                    />
+                                </View>
                             </View>
                         )}
                         keyExtractor={(item, index) => item.post_id.toString()}
+                    />
+                    <Modal
+                        animationType={"fade"}
+                        transparent={false}
+                        visible={this.state.modalVisible}
+                    >
+                        <TextInput
+                            placeholder="Add your text here"
+                            onChangeText={(text) => this.setState({ text })}
+                            value={this.state.text}
+                        />
+                        <Button
+                            color='#808080'
+                            title="send New Post To This Page"
+                            onPress={() => { this.newPost() }}
+                        />
+                    </Modal>
+                    <Button
+                        title="Click to Add New Post"
+                        onPress={() => { this.setState({ modalVisible: true }) }}
                     />
                 </View>
             );
