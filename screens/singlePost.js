@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Text, TextInput, Button } from 'react-native';
+import { View, Text, TextInput, Button, Modal } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 import styles from '../styling/styles';
@@ -20,7 +20,8 @@ class SinglePost extends Component {
             allUserPosts: [],
             post: { post_id: "", post_text: "", post_timestamp: "", author_name: "", numOfLikes: "", },
             updateText: "",
-            text: ""
+            text: "",
+            modalVisible: false,
         }
     }
 
@@ -29,7 +30,6 @@ class SinglePost extends Component {
         this.getPost();
 
     }
-
 
 
     getData = async () => {
@@ -111,7 +111,8 @@ class SinglePost extends Component {
         })
             .then((response) => {
                 if (response.status === 200) {
-                    alert("Success Changed")
+                    alert("Successfully Changed")
+                    window.location.reload()
                 } else if (response.status === 401) {
                     this.props.navigation.navigate("Login");
                 } else {
@@ -147,15 +148,26 @@ class SinglePost extends Component {
                             <Text>Author:{''} {this.state.post.authorFirstName} {''} {this.state.post.authorLastName}</Text>
                         </View>
                         <View>
-                            <TextInput
-                                placeholder="Enter new Text Data"
-                                onChangeText={(text) => this.setState({ text })}
-                                value={this.state.text}
-                            />
+                            <Modal
+                                animationType={"fade"}
+                                transparent={false}
+                                visible={this.state.modalVisible}
+                                onRequestClose={() => { console.log("Edit has been closed.") }}>
+                                <TextInput
+                                    placeholder="Enter new Text Data"
+                                    onChangeText={(text) => this.setState({ text })}
+                                    value={this.state.text}
+                                />
 
-                            <Button style={styles.buttonSize}
-                                title="Update"
-                                onPress={() => this.update()}
+                                <Button style={styles.buttonSize}
+                                    title="Update"
+                                    onPress={() => this.update()}
+                                />
+                            </Modal>
+
+                            <Button
+                                title="Click To add new post"
+                                onPress={() => { this.setState({ modalVisible: true }) }}
                             />
                         </View>
                     </View>
