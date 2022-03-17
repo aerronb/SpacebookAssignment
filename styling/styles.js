@@ -87,7 +87,7 @@ export default StyleSheet.create({
 
     //editUser
     "buttonSize": {
-        width: 20,
+        width: 50,
     },
 
     //profile
@@ -110,5 +110,15 @@ export default StyleSheet.create({
         padding:5, 
         borderWidth:1, 
         margin:5,
-    }
+    },
+
+    //modal
+   "center": {
+        alignSelf: 'center',
+        width: 200,
+        left: "40%",
+        top: "50%",
+        transform: ("-50%", "-50%"),
+        position: 'absolute'
+      }
   });

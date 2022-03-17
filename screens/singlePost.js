@@ -124,6 +124,15 @@ class SinglePost extends Component {
             })
     }
 
+    isTextEntered () {
+        if(!this.state.text.trim()){
+            alert("cannot leave this empty");
+        }
+        else{
+            this.update()
+        }
+    }
+
 
     render() {
 
@@ -152,17 +161,25 @@ class SinglePost extends Component {
                                 animationType={"fade"}
                                 transparent={false}
                                 visible={this.state.modalVisible}
-                                onRequestClose={() => { console.log("Edit has been closed.") }}>
-                                <TextInput
-                                    placeholder="Enter new Text Data"
-                                    onChangeText={(text) => this.setState({ text })}
-                                    value={this.state.text}
-                                />
+                            >
+                                <View style={styles.center}>
+                                    <TextInput
+                                        
+                                        placeholder="Enter new Text Data"
+                                        onChangeText={(text) => this.setState({ text })}
+                                        value={this.state.text}
+                                    />
 
-                                <Button style={styles.buttonSize}
-                                    title="Update"
-                                    onPress={() => this.update()}
-                                />
+                                    <Button
+                                        title="Update"
+                                        onPress={() => this.isTextEntered()}
+                                    />
+
+                                    <Button
+                                        title="Close"
+                                        onPress={() => this.setState({ modalVisible: false })}
+                                    />
+                                </View>
                             </Modal>
 
                             <Button
