@@ -26,7 +26,7 @@ class FriendRequests extends Component {
         })
             .then((response) => {
                 if (response.status === 200) {
-                    console.log("Friend requests are showing")
+                    return response.json();
                 } else if (response.status === 401) {
                     this.props.navigation.navigate("Login");
                 } else {

@@ -99,7 +99,6 @@ class SinglePost extends Component {
         if (this.state.updateText != this.state.text) {
             update['post_text'] = this.state.updateText;
         }
-        const id = await AsyncStorage.getItem('@session_id');
         const value = await AsyncStorage.getItem('@session_token');
         return fetch("http://localhost:3333/api/1.0.0/user/" + this.props.route.params.info.friend_id + "/post/" + this.props.route.params.info.post_id, {
             method: 'PATCH',
@@ -114,7 +113,11 @@ class SinglePost extends Component {
                     alert("Successfully Changed")
                     window.location.reload()
                 } else if (response.status === 401) {
+                    alert("You must Login first");
                     this.props.navigation.navigate("Login");
+                }else if (response.status === 403) {
+                    alert("You can only change your own posts. Please pick a post you have made.");
+                    window.location.reload();
                 } else {
                     throw 'Something went wrong';
                 }
@@ -183,7 +186,7 @@ class SinglePost extends Component {
                             </Modal>
 
                             <Button
-                                title="Click To add new post"
+                                title="Click To update your post"
                                 onPress={() => { this.setState({ modalVisible: true }) }}
                             />
                         </View>

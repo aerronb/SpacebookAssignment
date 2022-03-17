@@ -90,7 +90,7 @@ class FriendsWall extends Component {
         })
             .then((response) => {
                 if (response.status === 200) {
-                    //change to alert
+                    return response.json()
                 } else if (response.status === 401) {
                     this.props.navigation.navigate("Login");
                 } else {
@@ -117,7 +117,7 @@ class FriendsWall extends Component {
         })
             .then((response) => {
                 if (response.status === 200) {
-                    //change to alert
+                    return response.json()
                 } else if (response.status === 401) {
                     this.props.navigation.navigate("Login");
                 } else {
