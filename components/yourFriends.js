@@ -18,8 +18,9 @@ class YourFriends extends Component {
 
 
     getData = async () => {
+        const id = await AsyncStorage.getItem('@session_id');
         const value = await AsyncStorage.getItem('@session_token');
-        return fetch("http://localhost:3333/api/1.0.0/user/8/friends", {
+        return fetch("http://localhost:3333/api/1.0.0/user/" + id + "/friends", {
             'headers': {
                 'X-Authorization': value
             }
@@ -29,6 +30,8 @@ class YourFriends extends Component {
                     return response.json()
                 } else if (response.status === 401) {
                     this.props.navigation.navigate("Login");
+                } else if (response.status === 403) {
+                    alert("Please add this person or add one of their friends!")
                 } else {
                     throw 'Something went wrong';
                 }

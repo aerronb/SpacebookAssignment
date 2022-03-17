@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
-import { Text, ScrollView, Button } from 'react-native';
+import { Text, View, Button } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import styles from '../styling/styles';
 
 class HomeScreen extends Component{
     constructor(props){
@@ -41,6 +42,7 @@ class HomeScreen extends Component{
         })
         .then((response) => {
             if(response.status === 200){
+                alert("You have chosen to log out")
                 this.props.navigation.navigate("Login");
             }else if(response.status === 401){
                 this.props.navigation.navigate("Login");
@@ -56,17 +58,18 @@ class HomeScreen extends Component{
 
     render(){
         return (
-            <ScrollView>
-                <Button
-                    title="Logout"
+            <View>
+                <Button 
+                    title="Contiue With Logout"
+                    color="red"
                     onPress={() => this.logout()}
                 />
                 <Button
                     title="Back to Homepage"
-                    color="darkblue"
+                    color="darkgreen"
                     onPress={() => this.props.navigation.navigate("Home")}
                 />
-            </ScrollView>
+            </View>
         )
     }
 }

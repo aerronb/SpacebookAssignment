@@ -112,6 +112,25 @@ export default StyleSheet.create({
         margin:5,
     },
 
+    //camera
+    "cameraButtonContainer": {
+        flex: 1,
+        backgroundColor: 'transparent',
+        flexDirection: 'row',
+        margin: 20,
+    },
+
+    "cameraButton": {
+        flex: 0.1,
+        alignSelf: 'flex-end',
+        alignItems: 'center',
+    },
+
+    "cameraText": {
+        fontSize: 18,
+        color: 'white',
+    },
+
     //modal
    "center": {
         alignSelf: 'center',

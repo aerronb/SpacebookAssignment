@@ -21,6 +21,7 @@ class SinglePost extends Component {
             post: { post_id: "", post_text: "", post_timestamp: "", author_name: "", numOfLikes: "", },
             updateText: "",
             text: "",
+            delete: [],
             modalVisible: false,
         }
     }
@@ -91,6 +92,37 @@ class SinglePost extends Component {
             });
     }
 
+
+    deletePost = async () => {
+        const value = await AsyncStorage.getItem('@session_token');
+        return fetch("http://localhost:3333/api/1.0.0/user/" + this.props.route.params.info.friend_id + "/post/" + this.props.route.params.info.post_id, {
+            method: 'delete',
+            headers: {
+                'X-Authorization': value
+            }
+        })
+            .then((response) => {
+                if (response.status === 200) {
+                    return response.json()
+                } else if (response.status === 401) {
+                    this.props.navigation.navigate("Login");
+                } else if (response.status === 403) {
+                    alert("You can only delete your own posts.");
+                }else {
+                    throw 'Something went wrong';
+                }
+            })
+            .then((responseJson) => {
+                this.setState({
+                    isLoading: false,
+                    delete: responseJson
+                })
+            })
+            .catch((error) => {
+                console.log(error);
+            });
+    }
+
     update = async () => {
 
 
@@ -115,7 +147,7 @@ class SinglePost extends Component {
                 } else if (response.status === 401) {
                     alert("You must Login first");
                     this.props.navigation.navigate("Login");
-                }else if (response.status === 403) {
+                } else if (response.status === 403) {
                     alert("You can only change your own posts. Please pick a post you have made.");
                     window.location.reload();
                 } else {
@@ -127,11 +159,13 @@ class SinglePost extends Component {
             })
     }
 
-    isTextEntered () {
-        if(!this.state.text.trim()){
+
+
+    isTextEntered() {
+        if (!this.state.text.trim()) {
             alert("cannot leave this empty");
         }
-        else{
+        else {
             this.update()
         }
     }
@@ -160,6 +194,12 @@ class SinglePost extends Component {
                             <Text>Author:{''} {this.state.post.authorFirstName} {''} {this.state.post.authorLastName}</Text>
                         </View>
                         <View>
+                            <Button
+                                title="Delete"
+                                onPress={() => this.deletePost()}
+                            />
+                        </View>
+                        <View>
                             <Modal
                                 animationType={"fade"}
                                 transparent={false}
@@ -167,7 +207,7 @@ class SinglePost extends Component {
                             >
                                 <View style={styles.center}>
                                     <TextInput
-                                        
+
                                         placeholder="Enter new Text Data"
                                         onChangeText={(text) => this.setState({ text })}
                                         value={this.state.text}

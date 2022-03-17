@@ -24,7 +24,7 @@ class FriendsHome extends Component {
   getData = async () => {
     const value = await AsyncStorage.getItem('@session_token');
     const id = await AsyncStorage.getItem('@session_id');
-    return fetch("http://localhost:3333/api/1.0.0/user/8/friends", {
+    return fetch("http://localhost:3333/api/1.0.0/user/" + id + "/friends", {
         'headers': {
             'X-Authorization': value
         }

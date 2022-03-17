@@ -47,7 +47,7 @@ class SignupScreen extends Component {
             alert("cannot leave this empty");
         }
         else{
-            this.update()
+            this.signup()
         }
     }
 

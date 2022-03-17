@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Text, FlatList, TouchableOpacity, Pressable, Button, TextInput } from 'react-native';
+import { View, Text, FlatList, TouchableOpacity, Pressable, Button, TextInput, Modal } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 import styles from '../styling/styles';
@@ -17,7 +17,8 @@ class FriendsWall extends Component {
             myEmail: "",
             myFriends: "",
             text: "",
-            allUserPosts: []
+            allUserPosts: [],
+            modalVisible: false
         }
     }
 
@@ -90,9 +91,14 @@ class FriendsWall extends Component {
         })
             .then((response) => {
                 if (response.status === 200) {
+                    alert("You have liked this post!")
                     return response.json()
                 } else if (response.status === 401) {
                     this.props.navigation.navigate("Login");
+                } else if (response.status === 403) {
+                    alert("You have already liked this post. Please unlike first")
+                } else if (response.status === 400) {
+                    alert("You have already liked this post")
                 } else {
                     throw 'Something went wrong';
                 }
@@ -117,9 +123,11 @@ class FriendsWall extends Component {
         })
             .then((response) => {
                 if (response.status === 200) {
-                    return response.json()
+                    alert("You have removed your like from this post")
                 } else if (response.status === 401) {
                     this.props.navigation.navigate("Login");
+                } else if (response.status === 403) {
+                    alert("You have not liked this post. Please do so first")
                 } else {
                     throw 'Something went wrong';
                 }
@@ -144,22 +152,22 @@ class FriendsWall extends Component {
             },
             body: JSON.stringify(this.state)
         })
-        .then((response) => {
-            if(response.status === 201){
-                return response.json()
-            }else if(response.status === 400){
-                throw 'Failed validation';
-            }else{
-                throw 'Something went wrong';
-            }
-        })
-        .then((responseJson) => {
-               console.log("post created with ID: ", responseJson);
-        })
-        .catch((error) => {
-            console.log(error);
-        })
-    } 
+            .then((response) => {
+                if (response.status === 201) {
+                    alert("Post has been created. Please refresh to see!")
+                    return response.json()
+                }else if (response.status === 401) {
+                    this.props.navigation.navigate("Login");
+                } else if (response.status === 404) {
+                    throw 'Not found';
+                } else {
+                    throw 'Something went wrong';
+                }
+            })
+            .catch((error) => {
+                console.log(error);
+            })
+    }
 
 
     render() {
@@ -211,16 +219,26 @@ class FriendsWall extends Component {
                             keyExtractor={(item, index) => item.post_id.toString()}
                         />
                         <View>
-                        <TextInput
-                            placeholder="Add your text here"
-                            onChangeText={(text) => this.setState({text})}
-                            value={this.state.text}
-                        />
-                        <Button
-                            color= '#808080'
-                            title="Add New Post To This Page"
-                            onPress={() => {this.newPost()}} 
-                        />
+                            <Modal
+                                animationType={"fade"}
+                                transparent={false}
+                                visible={this.state.modalVisible}
+                            >
+                                <TextInput
+                                    placeholder="Add your text here"
+                                    onChangeText={(text) => this.setState({ text })}
+                                    value={this.state.text}
+                                />
+                                <Button
+                                    color='#808080'
+                                    title="send New Post To This Page"
+                                    onPress={() => { this.newPost() }}
+                                />
+                            </Modal>
+                            <Button
+                                title="Click to Add New Post"
+                                onPress={() => { this.setState({ modalVisible: true }) }}
+                            />
                         </View>
 
                     </View>

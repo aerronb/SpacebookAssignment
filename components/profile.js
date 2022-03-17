@@ -22,20 +22,30 @@ class MyProfile extends Component {
   getData = async () => {
     const id = await AsyncStorage.getItem('@session_id');
     const value = await AsyncStorage.getItem('@session_token');
-    return fetch("http://localhost:3333/api/1.0.0/user/8", {
+    return fetch("http://localhost:3333/api/1.0.0/user/" + id, {
       method: 'GET',
       headers: {
         'X-Authorization': value
       }
     })
-      .then((response) => response.json())
+      .then((response) => {
+        if (response.status === 200) {
+          return response.json()
+        } else if (response.status === 401) {
+          this.props.navigation.navigate("Login");
+        } else if (response.status === 404) {
+          alert("Not Found")
+        } else {
+          throw 'Something went wrong';
+        }
+      })
       .then((responseJson) => {
         this.setState({
           isLoading: false,
-            myFirstName: responseJson.first_name,
-            myLastName: responseJson.last_name,
-            myEmail: responseJson.email,
-            myFriends: responseJson.friend_count,
+          myFirstName: responseJson.first_name,
+          myLastName: responseJson.last_name,
+          myEmail: responseJson.email,
+          myFriends: responseJson.friend_count,
         })
       })
       .catch((error) => {

@@ -55,7 +55,7 @@ class LoginScreen extends Component{
                     style={styles.formInputs}
                 />
                 <TextInput
-                    placeholder="Enter your password..."
+                    placeholder="Set your password..."
                     onChangeText={(password) => this.setState({password})}
                     value={this.state.password}
                     secureTextEntry
@@ -67,7 +67,7 @@ class LoginScreen extends Component{
                 />
                 <Button
                     title="Don't have an account?"
-                    color="darkblue"
+                    color="#90668D"
                     onPress={() => this.props.navigation.navigate("Signup")}
                 />
             </ScrollView>

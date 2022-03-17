@@ -3,6 +3,8 @@ import { StyleSheet, Text, View, TouchableOpacity } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { Camera } from 'expo-camera';
 
+import styles from '../styling/styles';
+
 class NewPhoto extends Component {
     constructor(props) {
         super(props);
@@ -56,19 +58,19 @@ class NewPhoto extends Component {
     render() {
         if (this.state.hasPermission) {
             return (
-                <View style={styles.container}>
+                <View style={styles.flex}>
                     <Camera
-                        style={styles.camera}
+                        style={styles.flex}
                         type={this.state.type}
                         ref={ref => this.camera = ref}
                     >
-                        <View style={styles.buttonContainer}>
+                        <View style={styles.cameraButtonContainer}>
                             <TouchableOpacity
-                                style={styles.button}
+                                style={styles.cameraButton}
                                 onPress={() => {
                                     this.takePicture();
                                 }}>
-                                <Text style={styles.text}> Take Photo </Text>
+                                <Text style={styles.cameraText}> Take Photo </Text>
                             </TouchableOpacity>
                         </View>
                     </Camera>
@@ -76,34 +78,10 @@ class NewPhoto extends Component {
             );
         } else {
             return (
-                <Text>No access to camera</Text>
+                alert("No access has been given to the camera")
             );
         }
     }
 }
 
 export default NewPhoto;
-
-const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-    },
-    camera: {
-        flex: 1,
-    },
-    buttonContainer: {
-        flex: 1,
-        backgroundColor: 'transparent',
-        flexDirection: 'row',
-        margin: 20,
-    },
-    button: {
-        flex: 0.1,
-        alignSelf: 'flex-end',
-        alignItems: 'center',
-    },
-    text: {
-        fontSize: 18,
-        color: 'white',
-    },
-});

@@ -68,7 +68,7 @@ class MyProfile extends Component {
         }
         const id = await AsyncStorage.getItem('@session_id');
         const value = await AsyncStorage.getItem('@session_token');
-        return fetch("http://localhost:3333/api/1.0.0/user/8", {
+        return fetch("http://localhost:3333/api/1.0.0/user/" + id, {
             method: 'PATCH',
             headers: {
                 'Content-Type': 'application/json',
@@ -78,9 +78,11 @@ class MyProfile extends Component {
         })
             .then((response) => {
                 if (response.status === 200) {
-                    alert("Success Changed")
+                    alert("Success Changed");
                 } else if (response.status === 401) {
                     this.props.navigation.navigate("Login");
+                }  else if (response.status === 403) {
+                    alert("Forbidden");
                 } else {
                     throw 'Something went wrong';
                 }

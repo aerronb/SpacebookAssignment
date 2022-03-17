@@ -32,6 +32,8 @@ class ShowAllPeople extends Component {
                     return response.json()
                 } else if (response.status === 401) {
                     this.props.navigation.navigate("Login");
+                }  else if (response.status === 400) {
+                    alert("Bad request please try again.")
                 } else {
                     throw 'Something went wrong';
                 }
@@ -60,6 +62,8 @@ class ShowAllPeople extends Component {
                     alert("successfully sent request")
                 } else if (response.status === 401) {
                     this.props.navigation.navigate("Login");
+                }  else if (response.status === 403) {
+                    alert("User is already a friend");
                 } else {
                     throw 'Something went wrong';
                 }

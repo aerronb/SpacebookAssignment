@@ -16,9 +16,9 @@ class Friends extends Component {
     render() {
         return (
             <ScrollView style={styles.container}>
-                <View style={styles.navBar}>
+                <View style={styles.centering}>
 
-                    <Text>SearchBar</Text>
+                    <Text style={styles.centering}>SearchBar</Text>
                 </View>
 
                 <View>
