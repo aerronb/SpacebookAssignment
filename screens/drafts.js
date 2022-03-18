@@ -8,10 +8,36 @@ class drafts extends Component {
     super(props);
 
     this.state = {
+      drafts: [],
     };
   }
 
+  componentDidMount() {
+    this.getData();
+  }
 
+  getData = async () =>{
+    let data = await AsyncStorage.getItem("@draft_text")
+    data = JSON.parse(data);
+    const drafts = []
+    Object.keys(data).forEach((n) => {
+      drafts.push(data[n])
+    } )
+    this.setState({
+      drafts
+    })
+  }
+
+  showData = () => {
+    console.log(this.state.drafts)
+    return this.state.drafts.map((d) => {
+      return(
+        <View key={d}>
+          <Text>{d}</Text>
+        </View>
+      )
+    })
+  }
 
 
   render() {
@@ -26,7 +52,7 @@ class drafts extends Component {
     }
     return (
       <View>
-          <Text>DRAFTS </Text>
+          {this.showData()}
       </View>
     );
   }

@@ -134,7 +134,7 @@ class FriendRequests extends Component {
                 <Text>ACCEPT FRIEND REQUEST</Text>
               </TouchableOpacity>
               <TouchableOpacity
-                accessibilityLabel="Reject Friend Request"
+                accessibilityLabel="Reject friend Request"
                 style={styles.formInputD}
                 onPress={() => { this.delete(item.user_id); }}
               >

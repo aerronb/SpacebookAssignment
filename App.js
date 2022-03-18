@@ -10,16 +10,14 @@ import LogoutScreen from "./screens/logout";
 import PostScreen from "./screens/posts";
 import FriendScreen from "./screens/friends";
 import EditProfileScreen from "./screens/editUser";
-import FriendRequestScreen from "./components/friendRequests"; // check if needed
 import friendsAllScreen from "./screens/friendsHome";
 import friendsProfScreen from "./screens/friendsWall";
-import showAllScreen from "./components/showAllPeople";
 import singlePostScreen from "./screens/singlePost";
 import photoScreen from "./screens/newPhoto";
 import draftScreen from "./screens/drafts";
 
 const Drawer = createDrawerNavigator();
-
+//drawer label null to hide options in the drawer without the user having navigated first
 class App extends Component {
   render() {
     return (

@@ -1,14 +1,12 @@
 import React, { Component } from "react";
-import { Text, View, Button } from "react-native";
+import { View, Button } from "react-native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import styles from "../styling/styles";
 
 class HomeScreen extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      token: "",
     };
   }
 

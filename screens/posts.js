@@ -62,7 +62,7 @@ class Posts extends Component {
 
   update = async (params) => {
     const update = {};
-    //makes sure text is not the same
+    // makes sure text is not the same
     if (this.state.updateText != this.state.text) {
       update.post_text = this.state.updateText;
     }
@@ -96,8 +96,6 @@ class Posts extends Component {
       });
   };
 
-
-
   newPost = async () => {
     const id = await AsyncStorage.getItem("@session_id");
     const value = await AsyncStorage.getItem("@session_token");
@@ -126,23 +124,23 @@ class Posts extends Component {
         console.log(error);
       });
   };
+
   //* sets a blank JSON object as 1 if null
-  //*sets draft text from text entered different storage making it a string
- //*String back to object applied to the length of object where i is looping through text(drafts)
- //*Set each one back into a string
+  //* sets draft text from text entered different storage making it a string
+  //* String back to object applied to the length of object where i is looping through text(drafts)
+  //* Set each one back into a string
   addDraft = async () => {
     let dr = await AsyncStorage.getItem("@draft_text");
     console.log(dr);
     if (dr == null) {
-     await AsyncStorage.setItem("@draft_text", JSON.stringify({})
-      )
+      await AsyncStorage.setItem("@draft_text", JSON.stringify({}));
     }
-      dr = JSON.parse(dr);
-      console.log(dr);
-      let i = Object.keys(dr).length + 1;
-      dr[i] = this.state.text;
-      console.log(dr);
-      await AsyncStorage.setItem("@draft_text", JSON.stringify(dr));
+    dr = JSON.parse(dr);
+    console.log(dr);
+    const i = Object.keys(dr).length + 1;
+    dr[i] = this.state.text;
+    console.log(dr);
+    await AsyncStorage.setItem("@draft_text", JSON.stringify(dr));
   };
 
   isTextEntered(params) {

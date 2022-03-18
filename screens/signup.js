@@ -1,6 +1,8 @@
 import React, { Component } from "react";
 import {
-  Button, ScrollView, TextInput, View,
+  Button,
+  TextInput,
+  View,
 } from "react-native";
 import styles from "../styling/styles";
 
@@ -54,7 +56,6 @@ class SignupScreen extends Component {
         <TextInput
           accessibilityLabel="enter your first name here"
           accessibilityHint="User information please enter your first name"
-
           placeholder="Enter your first name..."
           onChangeText={(first_name) => this.setState({ first_name })}
           value={this.state.first_name}
@@ -63,7 +64,6 @@ class SignupScreen extends Component {
         <TextInput
           accessibilityLabel="enter your last name here"
           accessibilityHint="User information please enter your last name"
-
           placeholder="Enter your last name..."
           onChangeText={(last_name) => this.setState({ last_name })}
           value={this.state.last_name}
@@ -79,9 +79,8 @@ class SignupScreen extends Component {
           style={styles.formInputs}
         />
         <TextInput
-            accessibilityLabel="enter your password here"
-            accessibilityHint="User information please enter your password"
-
+          accessibilityLabel="enter your password here"
+          accessibilityHint="User information please enter your password"
           placeholder="Enter your password..."
           onChangeText={(password) => this.setState({ password })}
           value={this.state.password}

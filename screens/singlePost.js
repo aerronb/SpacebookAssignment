@@ -169,7 +169,8 @@ class SinglePost extends Component {
         console.log(error);
       });
   };
-  //validation for editing text
+
+  // validation for editing text
   isTextEntered() {
     if (!this.state.text.trim()) {
       alert("cannot leave this empty");
