@@ -16,7 +16,7 @@ import friendsProfScreen from "./screens/friendsWall";
 import showAllScreen from "./components/showAllPeople";
 import singlePostScreen from "./screens/singlePost";
 import photoScreen from "./screens/newPhoto";
-import draftScreen from "./screens/newDraft";
+import draftScreen from "./screens/drafts";
 
 const Drawer = createDrawerNavigator();
 
@@ -24,21 +24,21 @@ class App extends Component {
   render() {
     return (
       <NavigationContainer>
-        <Drawer.Navigator>
+        <Drawer.Navigator backBehavior="history">
           <Drawer.Screen name="Home" component={HomeScreen} />
           <Drawer.Screen name="Login" component={LoginScreen} />
           <Drawer.Screen name="Signup" component={SignupScreen} />
           <Drawer.Screen name="Logout" component={LogoutScreen} />
           <Drawer.Screen name="Posts" component={PostScreen} options={{ drawerLabel: () => null }} />
-          <Drawer.Screen name="All-Users" component={FriendScreen} />
-          <Drawer.Screen name="EditProfile" component={EditProfileScreen} />
-          <Drawer.Screen name="friendRequests" component={FriendRequestScreen} />
-          <Drawer.Screen name="FriendsHome" component={friendsAllScreen} />
-          <Drawer.Screen name="FriendsWall" component={friendsProfScreen} />
-          <Drawer.Screen name="ShowAllPeople" component={showAllScreen} />
-          <Drawer.Screen name="singlePost" component={singlePostScreen} />
-          <Drawer.Screen name="newPhoto" component={photoScreen} />
-          <Drawer.Screen name="newDraft" component={draftScreen} />
+          <Drawer.Screen name="All-Users" component={FriendScreen} options={{ drawerLabel: () => null }} />
+          <Drawer.Screen name="EditProfile" component={EditProfileScreen} options={{ drawerLabel: () => null }} />
+          <Drawer.Screen name="friendRequests" component={FriendRequestScreen} options={{ drawerLabel: () => null }} />
+          <Drawer.Screen name="FriendsHome" component={friendsAllScreen} options={{ drawerLabel: () => null }} />
+          <Drawer.Screen name="FriendsWall" component={friendsProfScreen} options={{ drawerLabel: () => null }} />
+          <Drawer.Screen name="ShowAllPeople" component={showAllScreen} options={{ drawerLabel: () => null }} />
+          <Drawer.Screen name="singlePost" component={singlePostScreen} options={{ drawerLabel: () => null }} />
+          <Drawer.Screen name="newPhoto" component={photoScreen} options={{ drawerLabel: () => null }} />
+          <Drawer.Screen name="drafts" component={draftScreen} options={{ drawerLabel: () => null }} />
         </Drawer.Navigator>
       </NavigationContainer>
     );

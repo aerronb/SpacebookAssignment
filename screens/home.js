@@ -125,8 +125,8 @@ class HomeScreen extends Component {
         <View style={styles.edit}>
           <Button
             color="#308776"
-            title="Add A Draft"
-            onPress={() => this.props.navigation.navigate("newDraft")}
+            title="See Your Drafts"
+            onPress={() => this.props.navigation.navigate("drafts")}
           />
         </View>
 

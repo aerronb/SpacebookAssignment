@@ -43,6 +43,10 @@ class SinglePost extends Component {
     this.getPost();
   }
 
+  componentWillUnmount() {
+    this.unsubscribe();
+  }
+
   getData = async () => {
     const value = await AsyncStorage.getItem("@session_token");
     return fetch(`http://localhost:3333/api/1.0.0/user/${this.props.route.params.info.friend_id}`, {
@@ -151,13 +155,13 @@ class SinglePost extends Component {
       .then((response) => {
         if (response.status === 200) {
           alert("Successfully Changed");
+          this.setState({ modalVisible: false });
           window.location.reload();
         } else if (response.status === 401) {
           alert("You must Login first");
           this.props.navigation.navigate("Login");
         } else if (response.status === 403) {
           alert("You can only change your own posts. Please pick a post you have made.");
-          window.location.reload();
         } else {
           throw "Something went wrong";
         }
@@ -259,6 +263,11 @@ class SinglePost extends Component {
             <Button
               title="Click To update your post"
               onPress={() => { this.setState({ modalVisible: true }); }}
+            />
+
+            <Button
+              onPress={() => { this.props.navigation.goBack(); }}
+              title="Go Back to Friends Wall"
             />
           </View>
         </View>

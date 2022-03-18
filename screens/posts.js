@@ -21,6 +21,7 @@ class Posts extends Component {
       allUserPosts: [],
       modalVisible: false,
       text: "",
+
     };
   }
 
@@ -78,9 +79,10 @@ class Posts extends Component {
       .then((response) => {
         if (response.status === 200) {
           alert("Successfully Changed");
+          this.setState({ modalVisible: false });
           window.location.reload();
         } else if (response.status === 401) {
-          alert("You must Login first");
+          alert("You must login first");
           this.props.navigation.navigate("Login");
         } else if (response.status === 403) {
           alert("You can only change your own posts. Please pick a post you have made.");
@@ -122,6 +124,21 @@ class Posts extends Component {
       .catch((error) => {
         console.log(error);
       });
+  };
+
+  addDraft = async () => {
+    let dr = await AsyncStorage.getItem("@draft_text");
+    console.log(dr);
+    if (dr == null) {
+     await AsyncStorage.setItem("@draft_text", JSON.stringify({})
+      )
+    }
+      dr = JSON.parse(dr);
+      console.log(dr);
+      let i = Object.keys(dr).length + 1;
+      dr[i] = this.state.text;
+      console.log(dr);
+      await AsyncStorage.setItem("@draft_text", JSON.stringify(dr));
   };
 
   isTextEntered(params) {
@@ -235,6 +252,12 @@ class Posts extends Component {
               color="#808080"
               title="send New Post To This Page"
               onPress={() => { this.newPost(); }}
+            />
+
+            <Button
+              title="Click to Save New Draft"
+              onPress={() => { this.addDraft(); }}
+              color="#334A52"
             />
 
             <Button
