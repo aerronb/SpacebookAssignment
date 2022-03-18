@@ -78,6 +78,7 @@ class HomeScreen extends Component {
       <View style={styles.container}>
         <View style={styles.navBar}>
           <TouchableOpacity
+            accessibilityLabel="Click this picture to open the drawer navigator"
             onPress={() => this.props.navigation.dispatch(DrawerActions.toggleDrawer)}
           >
             <Image
@@ -88,11 +89,16 @@ class HomeScreen extends Component {
             />
           </TouchableOpacity>
 
-          <TouchableOpacity onPress={() => this.props.navigation.navigate("Posts")}>
+          <TouchableOpacity
+          accessibilityLabel="Press to go to your post page" 
+          onPress={() => this.props.navigation.navigate("Posts")}
+          >
             <Text>Posts!</Text>
           </TouchableOpacity>
 
-          <TouchableOpacity onPress={() => this.props.navigation.navigate("All-Users")}>
+          <TouchableOpacity 
+          accessibilityLabel="Press to find all users as well as add friends"
+          onPress={() => this.props.navigation.navigate("All-Users")}>
             <Text>Find your friends!</Text>
           </TouchableOpacity>
 
@@ -104,6 +110,8 @@ class HomeScreen extends Component {
 
         <View style={styles.edit}>
           <Button
+            accessibilityLabel="Click this go to an edit your profile page"
+            accessibilityHint="Clicking this will take you to an edit page allowing for the change of details"
             color="#96AFB8"
             title="Edit Profile"
             onPress={() => this.props.navigation.navigate("EditProfile")}
@@ -116,6 +124,8 @@ class HomeScreen extends Component {
 
         <View style={styles.edit}>
           <Button
+            accessibilityLabel="Press to send a post"
+            accessibilityHint="Clicking takes you to a friends list allowing you to see their profile and add a post"
             color="#808080"
             title="send a new post"
             onPress={() => this.props.navigation.navigate("FriendsHome")}
@@ -124,6 +134,8 @@ class HomeScreen extends Component {
 
         <View style={styles.edit}>
           <Button
+            accessibilityLabel="Press to send to drafts screen"
+            accessibilityHint=" Shows the posts you have drafted done on your wall"
             color="#308776"
             title="See Your Drafts"
             onPress={() => this.props.navigation.navigate("drafts")}

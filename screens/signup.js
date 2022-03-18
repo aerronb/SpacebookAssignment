@@ -52,24 +52,36 @@ class SignupScreen extends Component {
     return (
       <View style={styles.centering}>
         <TextInput
+          accessibilityLabel="enter your first name here"
+          accessibilityHint="User information please enter your first name"
+
           placeholder="Enter your first name..."
           onChangeText={(first_name) => this.setState({ first_name })}
           value={this.state.first_name}
           style={styles.formInputs}
         />
         <TextInput
+          accessibilityLabel="enter your last name here"
+          accessibilityHint="User information please enter your last name"
+
           placeholder="Enter your last name..."
           onChangeText={(last_name) => this.setState({ last_name })}
           value={this.state.last_name}
           style={styles.formInputs}
         />
         <TextInput
+          accessibilityLabel="enter your email here"
+          accessibilityHint="User information please enter your email"
+
           placeholder="Enter your email..."
           onChangeText={(email) => this.setState({ email })}
           value={this.state.email}
           style={styles.formInputs}
         />
         <TextInput
+            accessibilityLabel="enter your password here"
+            accessibilityHint="User information please enter your password"
+
           placeholder="Enter your password..."
           onChangeText={(password) => this.setState({ password })}
           value={this.state.password}
@@ -78,6 +90,8 @@ class SignupScreen extends Component {
         />
         <View style={styles.centering}>
           <Button
+            accessibilityLabel="For sign-up click here"
+            accessibilityHint="uses entered information to add your credentials to the database"
             title="Create an account"
             onPress={() => this.signup()}
           />

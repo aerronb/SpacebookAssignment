@@ -62,14 +62,14 @@ class Posts extends Component {
 
   update = async (params) => {
     const update = {};
-
+    //makes sure text is not the same
     if (this.state.updateText != this.state.text) {
       update.post_text = this.state.updateText;
     }
     const id = await AsyncStorage.getItem("@session_id");
     const value = await AsyncStorage.getItem("@session_token");
     return fetch(`http://localhost:3333/api/1.0.0/user/${id}/post/${params}`, {
-      method: "PATCH",
+      method: "patch",
       headers: {
         "Content-Type": "application/json",
         "X-Authorization": value,
@@ -111,7 +111,8 @@ class Posts extends Component {
     })
       .then((response) => {
         if (response.status === 201) {
-          alert("Post has been created. Please refresh to see!");
+          alert("Post has been created. Come back after refresh to see!");
+          window.location.reload();
           return response.json();
         } if (response.status === 401) {
           this.props.navigation.navigate("Login");
@@ -125,7 +126,10 @@ class Posts extends Component {
         console.log(error);
       });
   };
-
+  //* sets a blank JSON object as 1 if null
+  //*sets draft text from text entered different storage making it a string
+ //*String back to object applied to the length of object where i is looping through text(drafts)
+ //*Set each one back into a string
   addDraft = async () => {
     let dr = await AsyncStorage.getItem("@draft_text");
     console.log(dr);
@@ -153,12 +157,7 @@ class Posts extends Component {
     if (this.state.isLoading) {
       return (
         <View
-          style={{
-            flex: 1,
-            flexDirection: "column",
-            justifyContent: "center",
-            alignItems: "center",
-          }}
+          style={styles.isLoading}
         >
           <Text>Loading..</Text>
         </View>
@@ -209,17 +208,21 @@ class Posts extends Component {
                 >
                   <View style={styles.center}>
                     <TextInput
+                      accessibilityLabel="Text input for post data"
+                      accessibilityHint="Used to edit this posts information"
                       placeholder="Enter new Text Data"
                       onChangeText={(text) => this.setState({ text })}
                       value={this.state.text}
                     />
 
                     <Button
+                      accessibilityLabel="Button to send data"
                       title="Update"
                       onPress={() => this.isTextEntered(item.post_id)}
                     />
 
                     <Button
+                      accessibilityLabel="Close pop-up to edit text"
                       title="Close"
                       onPress={() => this.setState({ modalVisible: false })}
                     />
@@ -227,6 +230,8 @@ class Posts extends Component {
                 </Modal>
                 <View style={styles.edit}>
                   <Button
+                    accessibilityLabel=" open pop Modal"
+                    accessibilityHint="Used to open pop-up to edit post text"
                     onPress={() => { this.setState({ modalVisible: true }); }}
                     title="Click To update your post"
                     color="#96AFB8"
@@ -244,23 +249,29 @@ class Posts extends Component {
         >
           <View style={styles.center}>
             <TextInput
+              accessibilityLabel="Text to add new post or draft a post"
               placeholder="Add your text here"
               onChangeText={(text) => this.setState({ text })}
               value={this.state.text}
             />
             <Button
+              accessibilityLabel="Click to send post"
+              accessibilityHint="Used to send post data to function and add post to your wall"
               color="#808080"
               title="send New Post To This Page"
               onPress={() => { this.newPost(); }}
             />
 
             <Button
+              accessibilityLabel="Click to save draft"
+              accessibilityHint="Used to save post data to view later"
               title="Click to Save New Draft"
               onPress={() => { this.addDraft(); }}
               color="#334A52"
             />
 
             <Button
+              accessibilityLabel="Click to close pop-up modal"
               title="Close"
               onPress={() => this.setState({ modalVisible: false })}
             />
@@ -268,6 +279,8 @@ class Posts extends Component {
         </Modal>
         <View style={styles.edit}>
           <Button
+            accessibilityLabel="click to open pop-up modal"
+            accessibilityHint="Opens pop-up to write text for adding a new post"
             title="Click to Add New Post"
             onPress={() => { this.setState({ modalVisible: true }); }}
             color="#808080"

@@ -201,7 +201,10 @@ class FriendsWall extends Component {
             data={this.state.allUserPosts}
             renderItem={({ item }) => (
               <View style={styles.perPost}>
-                <Pressable onPress={() => this.props.navigation.navigate("singlePost", {
+                <Pressable 
+                accessibilityLabel="Press to see this post alone"
+                accessibilityHint="Allows you if the author to edit and delete the post " 
+                onPress={() => this.props.navigation.navigate("singlePost", {
                   info: {
                     friend_id: this.state.myid,
                     post_id: item.post_id,
@@ -230,12 +233,14 @@ class FriendsWall extends Component {
                   </Text>
                   <View style={styles.edit}>
                     <Button
+                      accessibilityLabel="Press to like post"
                       title="Like Post"
                       color="#99F9BC"
                       onPress={() => { this.addLike(item.post_id); }}
                     />
 
                     <Button
+                      accessibilityLabel="Press to unlike post"
                       title="Unlike Post"
                       color="#cc0000"
                       onPress={() => { this.unLike(item.post_id); }}
@@ -253,17 +258,21 @@ class FriendsWall extends Component {
               visible={this.state.modalVisible}
             >
               <TextInput
+                accessibilityLabel="Text entered to add new post"
                 placeholder="Add your text here"
                 onChangeText={(text) => this.setState({ text })}
                 value={this.state.text}
               />
               <Button
+                accessibilityLabel="Press to send new post to friends wall"
                 color="#808080"
                 title="send New Post To This Page"
                 onPress={() => { this.newPost(); }}
               />
             </Modal>
             <Button
+              accessibilityLabel="Open modal"
+              accessibilityHint="Opens so text can be wrote and sent to the designated persons wall"
               title="Click to Add New Post"
               onPress={() => { this.setState({ modalVisible: true }); }}
             />

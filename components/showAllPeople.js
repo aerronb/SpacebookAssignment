@@ -91,6 +91,7 @@ class ShowAllPeople extends Component {
     return (
       <View>
         <TextInput
+          accessibilityLabel="Enter a name to narrow down the search results"
           placeholder="Enter a name"
           onChangeText={(find_name) => this.setState({ find_name })}
           value={this.state.find_name}
@@ -107,6 +108,7 @@ class ShowAllPeople extends Component {
               <Text>{item.user_givenname}</Text>
               <Text>{item.user_familyname}</Text>
               <TouchableOpacity
+                accessibilityLabel="Click to send this person a friend request"
                 style={styles.formInputS}
                 onPress={() => {
                   this.send(item.user_id);

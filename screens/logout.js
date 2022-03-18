@@ -52,7 +52,6 @@ class HomeScreen extends Component {
       })
       .catch((error) => {
         console.log(error);
-        ToastAndroid.show(error, ToastAndroid.SHORT);
       });
   };
 
@@ -60,14 +59,18 @@ class HomeScreen extends Component {
     return (
       <View>
         <Button
+          accessibilityLabel="Press to logout"
+          accessibilityHint="Logs you out as the current user"
           title="Contiue With Logout"
           color="red"
           onPress={() => this.logout()}
         />
         <Button
-          title="Back to Homepage"
+          accessibilityLabel="Press for previous screen"
+          accessibilityHint="Press to be taken to the previous screen clicked on"
+          title="Back to Previous Page"
           color="darkgreen"
-          onPress={() => this.props.navigation.navigate("Home")}
+          onPress={() => this.props.navigation.goBack()}
         />
       </View>
     );

@@ -115,7 +115,6 @@ export default StyleSheet.create({
   // login, logout, sign-up
   formInputs: {
     padding: 5,
-    borderWidth: 1,
     margin: 5,
   },
 

@@ -46,7 +46,7 @@ class SinglePost extends Component {
   componentWillUnmount() {
     this.unsubscribe();
   }
-
+  
   getData = async () => {
     const value = await AsyncStorage.getItem("@session_token");
     return fetch(`http://localhost:3333/api/1.0.0/user/${this.props.route.params.info.friend_id}`, {
@@ -55,7 +55,6 @@ class SinglePost extends Component {
         "X-Authorization": value,
       },
     })
-      .then((response) => response.json())
       .then((responseJson) => {
         this.setState({
           isLoading: false,
@@ -170,7 +169,7 @@ class SinglePost extends Component {
         console.log(error);
       });
   };
-
+  //validation for editing text
   isTextEntered() {
     if (!this.state.text.trim()) {
       alert("cannot leave this empty");
@@ -231,6 +230,8 @@ class SinglePost extends Component {
           </View>
           <View>
             <Button
+              accessibilityLabel="delete post"
+              accessibilityHint="Delete the post this button resides under"
               title="Delete"
               onPress={() => this.deletePost()}
             />
@@ -243,17 +244,23 @@ class SinglePost extends Component {
             >
               <View style={styles.center}>
                 <TextInput
+                  accessibilityLabel="Enter new text data here"
+                  accessibilityHint="Used to change the information in this post to what is entered"
                   placeholder="Enter new Text Data"
                   onChangeText={(text) => this.setState({ text })}
                   value={this.state.text}
                 />
 
                 <Button
+                  accessibilityLabel="send new post"
+                  accessibilityHint="sends data to function which updates text to newly entered text"
                   title="Update"
                   onPress={() => this.isTextEntered()}
                 />
 
                 <Button
+                  accessibilityLabel="close pop-up modal"
+                  accessibilityHint="Closes pop-up to enter edited text"
                   title="Close"
                   onPress={() => this.setState({ modalVisible: false })}
                 />
@@ -261,11 +268,14 @@ class SinglePost extends Component {
             </Modal>
 
             <Button
+            accessibilityLabel="Open pop-up modal"
+            accessibilityHint="Press to access modal which lets you enter text to update post"
               title="Click To update your post"
               onPress={() => { this.setState({ modalVisible: true }); }}
             />
-
+            {/* Uses history set in App.js to go back to previous screen than homeScreen */}
             <Button
+              accessibilityLabel="You can use this to go back to the previous screen"
               onPress={() => { this.props.navigation.goBack(); }}
               title="Go Back to Friends Wall"
             />

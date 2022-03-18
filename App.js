@@ -32,10 +32,8 @@ class App extends Component {
           <Drawer.Screen name="Posts" component={PostScreen} options={{ drawerLabel: () => null }} />
           <Drawer.Screen name="All-Users" component={FriendScreen} options={{ drawerLabel: () => null }} />
           <Drawer.Screen name="EditProfile" component={EditProfileScreen} options={{ drawerLabel: () => null }} />
-          <Drawer.Screen name="friendRequests" component={FriendRequestScreen} options={{ drawerLabel: () => null }} />
           <Drawer.Screen name="FriendsHome" component={friendsAllScreen} options={{ drawerLabel: () => null }} />
           <Drawer.Screen name="FriendsWall" component={friendsProfScreen} options={{ drawerLabel: () => null }} />
-          <Drawer.Screen name="ShowAllPeople" component={showAllScreen} options={{ drawerLabel: () => null }} />
           <Drawer.Screen name="singlePost" component={singlePostScreen} options={{ drawerLabel: () => null }} />
           <Drawer.Screen name="newPhoto" component={photoScreen} options={{ drawerLabel: () => null }} />
           <Drawer.Screen name="drafts" component={draftScreen} options={{ drawerLabel: () => null }} />

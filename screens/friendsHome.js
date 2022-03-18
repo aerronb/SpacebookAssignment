@@ -72,6 +72,7 @@ class FriendsHome extends Component {
               </Text>
               <Text>{item.user_email}</Text>
               <Button
+                accessibilityLabel="Navigate to chosen friends wall"
                 onPress={() => this.props.navigation.navigate("FriendsWall", {
                   friend_id: item.user_id,
                 })}

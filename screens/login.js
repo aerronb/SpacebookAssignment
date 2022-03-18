@@ -48,12 +48,16 @@ class LoginScreen extends Component {
     return (
       <ScrollView>
         <TextInput
+          accessibilityLabel="Text input to enter email"
+          accessibilityHint="Please enter the email you set-up the account with to login"
           placeholder="Enter your email..."
           onChangeText={(email) => this.setState({ email })}
           value={this.state.email}
           style={styles.formInputs}
         />
         <TextInput
+          accessibilityLabel="Text input to enter password"
+          accessibilityHint="Please enter the password you set-up the account with to login"
           placeholder="Set your password..."
           onChangeText={(password) => this.setState({ password })}
           value={this.state.password}
@@ -61,11 +65,14 @@ class LoginScreen extends Component {
           style={styles.formInputs}
         />
         <Button
+          accessibilityLabel="Press to Login"
           title="Login"
           onPress={() => this.login()}
         />
         <Button
-          title="Don't have an account?"
+          accessibilityLabel="Press to make a new account"
+          accessibilityHint="If an account has not been created you can use this button to take you to make one"
+          title="Click here to make an account?"
           color="#90668D"
           onPress={() => this.props.navigation.navigate("Signup")}
         />

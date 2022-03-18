@@ -106,16 +106,19 @@ class MyProfile extends Component {
             return (
                 <View>
                     <TextInput
+                        accessibilityLabel="Input to change your first name"
                         placeholder="Enter first Name"
                         onChangeText={(first_name) => this.setState({ first_name })}
                         value={this.state.first_name}
                     />
                     <TextInput
+                         accessibilityLabel="Input to change your last name"
                         placeholder="Enter Last Name"
                         onChangeText={(last_name) => this.setState({ last_name })}
                         value={this.state.last_name}
                     />
                     <TextInput
+                         accessibilityLabel="Input to change your email name"
                         placeholder="Enter Email"
                         onChangeText={(email) => this.setState({ email })}
                         value={this.state.email}
@@ -125,6 +128,7 @@ class MyProfile extends Component {
                         onPress={() => this.update()}
                     />
                     <Button
+                    accessibilityLabel="Button to take to new profile photo page"
                     title="Take a new photo"
                     onPress={() => this.props.navigation.navigate("newPhoto") }
                     />
